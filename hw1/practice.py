@@ -11,9 +11,9 @@ def compute_max_word_length(text):
     You might find max() and list comprehensions handy here.
     """
     # BEGIN_YOUR_CODE (around 1 line of code expected)
-    #array = text.split(' ');
-    #return max(sorted(array, reverse=True), key=len)
-    return max(text.split())
+    array = text.split(' ');
+    return max(sorted(array, reverse=True), key=len)
+    #return max(text.split())
     # END_YOUR_CODE
 
 ############################################################
