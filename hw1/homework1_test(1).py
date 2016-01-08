@@ -25,6 +25,14 @@ string5 = 'good molly miss golly'
 ans5 = compute_max_word_length(string5)
 print 'test 5\nyour answer:\t', ans5, '\ncorrect answer:\t molly'
 
+string6 = 'cse CSE'
+ans6 = compute_max_word_length(string6)
+print 'test 6\nyour answer:\t', ans6, '\ncorrect answer:\t cse'
+
+string7 = 'cse 150.'
+ans7 = compute_max_word_length(string7)
+print 'test 7\nyour answer:\t', ans7, '\ncorrect answer:\t 150.'
+
 ############################################################
 # Problem 1b
 
@@ -40,12 +48,12 @@ b2 = (-100, -1)
 ans2 = manhattan_distance(b1, b2)
 print 'test 2\nyour answer:\t', ans2, '\ncorrect answer:\t 201'
 
-c1 = (0,0)
+c1 = (0, 0)
 c2 = (0, 0)
 ans3 = manhattan_distance(c1, c2)
 print 'test 3\nyour answer:\t', ans3, '\ncorrect answer:\t 0'
 
-d1 = (-100, -1)
+d1 = (-100,-1)
 d2 = (-200, -1)
 ans4 = manhattan_distance(d1, d2)
 print 'test 4\nyour answer:\t', ans4, '\ncorrect answer:\t 100'
@@ -85,6 +93,10 @@ string2 = 'really really really bad bad bad'
 ans2 = compute_most_frequent_word(string2)
 print "test 2\nyour answer:\t", ans2, "\ncorrect answer:\t (set(['bad', 'really']), 3)"
 
+string3 = '\n\n\n\n\n\n  nnnn  abcde abcde abcde abcde'
+ans3 = compute_most_frequent_word(string3)
+print "test 3\nyour answer:\t", ans3, "\ncorrect answer:\t (set(['abcde']), 4)"
+
 
 ############################################################
 # Problem 1e
@@ -107,6 +119,10 @@ string4 = '8*(a+5)-4)/6'
 ans4 = correct_parentheses(string4)
 print "test 4\nyour answer:\t", ans4, "\ncorrect answer:\t False"
 
+string5 = ')('
+ans5 = correct_parentheses(string5)
+print "test 5\nyour answer:\t", ans5, "\ncorrect answer:\t False"
+
 ############################################################
 # Problem 1f
 
@@ -124,6 +140,6 @@ string3 = '(((()))))'
 ans3 = nested_parentheses(string3)
 print "test 3\nyour answer:\t", ans3, "\ncorrect answer:\t False"
 
-string4 = ''
+string4 = '(YY)'
 ans4 = nested_parentheses(string4)
-print "test 4\nyour answer:\t", ans4, "\ncorrect answer:\t True"
+print "test 4\nyour answer:\t", ans4, "\ncorrect answer:\t False"

@@ -1,5 +1,10 @@
 import collections
 
+# Group Members:
+# Yijun Zhang yiz160@ucsd.edu A99128273
+# Xinyi Ma  xim002@ucsd.edu  A98053046
+# Yuming Qiao y1qiao@ucsd.edu A99011577
+
 ############################################################
 # Problem 1a
 
