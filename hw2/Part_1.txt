@@ -1,0 +1,50 @@
+﻿1. Which of the following are true and which are false? 
+
+a) Depth­first search always expands at least as many nodes as A* search with an admissible heuristic.
+True
+
+b) h(n) = 0 is an admissible heuristic for the 8­puzzle.
+False
+
+c) A* is of no use in robotics because percepts, states, and actions are continuous.
+False
+
+d)  Breadth­first search is complete even if zero step costs are allowed.
+True
+
+e) Assume that a rook can move on a chessboard any number of squares in a straight line, vertically or horizontally, but cannot jump over other pieces. Manhattan distance is an admissible heuristic for the problem of moving the rook from square A to square B in the smallest number of moves.
+True
+
+
+2. Consider a state space where the start state is number 1 and each state k has two successors: numbers 2k and 2k + 1.
+
+a) Draw the portion of the state space for states 1 to 15.
+								1
+				2								3
+		4				5				6				7
+	8		9		10		11		12		13		14		15
+
+b) Suppose the goal state is 11. List the order in which nodes will be visited for breadth­first search, depth­limited search with limit 3, and iterative deepening search.
+BFS: 1 - 2 - 3 - 4 - 5 - 6 - 7 - 8 - 9 - 10 - 11
+DLS: 1 - 2 - 4 - 8 - 9 - 5 - 10 - 11
+IDS: 1 - 2 - 3 - 1 - 2 - 4 - 5 - 3 - 6 - 7 - 1 - 2 - 4 - 8 - 9 - 5 - 10 - 11
+
+c) How well would bi­directional search work on this problem? What is the branching factor in each direction of the bidirectional search?
+It will save time because the graph is not deep, and the frontiers can easily meet each other; the amount of time saved depends on the choice of searching algorithm from both directions
+From 11: 4
+From 1: 2
+
+d) Does the answer to (c) suggest a reformulation of the problem that would allow you to solve the problem of getting from state 1 to a given goal state with almost no search?
+?
+
+e) Call the action going from k to 2k Left, and the action going to 2k + 1 Right. Can you find an algorithm that outputs the solution to this problem without any search at all?
+Start from both directions, and both go Left(Right). The frontiers are guaranteed to find each other on some node. Then the solution can be constructed by those two paths.
+
+3. For a graph below would you prefer DFS or BFS? Justify your choice. List the sequences of paths explored by DFS and BFS.
+Start state: a, goal state: f.
+Edges: ab, ae, bd, db, dc, cb, dc, cd, ef.
+BFS. The graph contains loops (bdc, bd, cd).
+DFS: a - e - f
+BFS: a - e - b - f
+
+4. http://www.aispace.org/exercises/exercise3­c­2.shtml
