@@ -1,13 +1,13 @@
+"""
+Group Members:
+Yijun Zhang yiz160@ucsd.edu A99128273
+Xinyi Ma  xim002@ucsd.edu  A98053046
+Yuming Qiao y1qiao@ucsd.edu A99011577
+"""
 import collections
-
-# Group Members:
-# Yijun Zhang yiz160@ucsd.edu A99128273
-# Xinyi Ma  xim002@ucsd.edu  A98053046
-# Yuming Qiao y1qiao@ucsd.edu A99011577
 
 ############################################################
 # Problem 1a
-
 def compute_max_word_length(text):
     """
     Given a string |text|, return the longest word in |text|.  If there are
@@ -16,7 +16,7 @@ def compute_max_word_length(text):
     You might find max() and list comprehensions handy here.
     """
     # BEGIN_YOUR_CODE (around 1 line of code expected)
-    array = text.split(' ');
+    array = text.split(' ')
     return max(sorted(array, reverse=True), key=len)
     # END_YOUR_CODE
 
@@ -35,7 +35,7 @@ def manhattan_distance(loc1, loc2):
 ############################################################
 # Problem 1c
 
-def sparse_vector_dot_product(v1, v2):
+def sparse_vector_dot_product(vec1, vec2):
     """
     Given two sparse vectors |v1| and |v2|, each represented as Counters, return
     their dot product.
@@ -43,7 +43,7 @@ def sparse_vector_dot_product(v1, v2):
     """
     # BEGIN_YOUR_CODE (around 5 lines of code expected)
     #keys = set(v1.keys() + v2.keys())
-    return sum([v1[k] * v2[k] for k in v1.keys()])
+    return sum([vec1[k] * vec2[k] for k in vec1.keys()])
     # END_YOUR_CODE
 
 ############################################################
@@ -57,10 +57,10 @@ def compute_most_frequent_word(text):
     You might find it useful to use collections.Counter().
     """
     # BEGIN_YOUR_CODE (around 5 lines of code expected)
-    c = dict(collections.Counter(text.split(' ')))
-    maximum = max(c.values())
-    keys = [x for x,y in c.items() if y == maximum]
-    return (set(keys),maximum)
+    cnt = dict(collections.Counter(text.split(' ')))
+    maximum = max(cnt.values())
+    keys = [x for x, y in cnt.items() if y == maximum]
+    return (set(keys), maximum)
     # END_YOUR_CODE
 
 ############################################################
@@ -115,4 +115,4 @@ def nested_parentheses(expression):
         return False
 
     return nested_parentheses(expression[1:-1])
-    # END_YOUR_CODE    
+	# END_YOUR_CODE
