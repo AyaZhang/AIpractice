@@ -46,6 +46,7 @@ for line in fileinput.input():
     path={}
     path[tuple(arrangement)]=''
     action='LRS'
+
     while len(frontier)!=0:
         #print len(frontier)
         node=frontier.popleft()
@@ -53,6 +54,7 @@ for line in fileinput.input():
         #print node
         #print 'path: '+path[tuple(node)]
         room=node[length-1]
+        
         #find goal state
         count=0
         for k in range(0, length-1):
@@ -63,41 +65,28 @@ for line in fileinput.input():
         if count==length-1:
             print path[tuple(node)]
             sys.exit()
+        
         #run BFS
-        else:
-            step=path[tuple(node)]
-            for act in action:
-                #print act
-                if act=='L':
-                    temp=list(node)
-                    temp[length-1]=room-1
-                    if temp in visited:
-                        continue
-                    elif temp[length-1]>=0:
-                        frontier.append(temp)
-                        visited.append(temp)
-                        path[tuple(temp)]=step+act
-                    #print frontier
-                if act=='R':
-                    temp=list(node)
-                    temp[length-1]=room+1
-                    if temp in visited:
-                        continue
-                    elif temp[length-1]<=length-2:
-                        frontier.append(temp)
-                        visited.append(temp)
-                        path[tuple(temp)]=step+act
-                    #print frontier
-                if act=='S':
-                    temp=list(node)
-                    temp[room]=0
-                    if temp in visited:
-                        continue
-                    else:
-                        frontier.append(temp)
-                        visited.append(temp)
-                        path[tuple(temp)]=step+act
-                        #print frontier
+        step=path[tuple(node)]
+
+        for act in action:
+            #print act
+            if act=='L':
+                temp=list(node)
+                temp[length-1]=room-1
+            elif act=='R':
+                temp=list(node)
+                temp[length-1]=room+1
+            elif act=='S':
+                temp=list(node)
+                temp[room]=0
+            if temp in visited:
+                continue
+            elif temp[length-1]>=0:
+                frontier.append(temp)
+                visited.append(temp)
+                path[tuple(temp)]=step+act
+            #print frontier
 
 
 
