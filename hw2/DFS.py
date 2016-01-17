@@ -44,6 +44,10 @@ def depth_first_search(arrangement,depth):
         #print len(frontier)
         node=frontier.pop()
         dep+=1
+        #print 'depth: '
+        #print dep
+        if dep==depth:
+            continue
         #print 'This is node: '
         #print node
         #print 'path: '+path[tuple(node)]
@@ -65,7 +69,7 @@ def depth_first_search(arrangement,depth):
                         frontier.append(temp)
                         visited.append(temp)
                         path[tuple(temp)]=step+act
-                    #print frontier
+                        #print frontier
                 if act=='R':
                     temp=list(node)
                     if room==1:
@@ -78,7 +82,7 @@ def depth_first_search(arrangement,depth):
                         frontier.append(temp)
                         visited.append(temp)
                         path[tuple(temp)]=step+act
-                    #print frontier
+                        #print frontier
                 if act=='L':
                     temp=list(node)
                     if room==0:
@@ -92,15 +96,64 @@ def depth_first_search(arrangement,depth):
                             visited.append(temp)
                             step=path[tuple(node)]
                             path[tuple(temp)]=step+act
-                    #print frontier
-    return 'Cannot find the goal'
-
-
-
-
-
-
-
-
-
-
+                            #print frontier
+    dep=0
+    while len(frontier)!=0 and dep < depth:
+        #print 'length: '
+        #print len(frontier)
+        node=frontier.pop()
+        dep+=1
+        if dep==depth:
+            continue
+        #print 'This is node: '
+        #print node
+        #print 'path: '+path[tuple(node)]
+        room=node[2]
+        #find goal state
+        if node[0]==0 and node[1]==0:
+            return 'final path: '+path[tuple(node)]
+        else:
+            room=node[2]
+            step=path[tuple(node)]
+            for act in action:
+                #print act
+                if act=='S':
+                    temp=list(node)
+                    temp[room]=0
+                    if temp in visited:
+                        continue
+                    else:
+                        frontier.append(temp)
+                        visited.append(temp)
+                        path[tuple(temp)]=step+act
+                        #print 'frontier: '
+                        #print frontier
+                if act=='R':
+                    temp=list(node)
+                    if room==1:
+                        continue
+                    else:
+                        temp[2]=1
+                    if temp in visited:
+                        continue
+                    else:
+                        frontier.append(temp)
+                        visited.append(temp)
+                        path[tuple(temp)]=step+act
+                        #print 'frontier: '
+                        #print frontier
+                if act=='L':
+                    temp=list(node)
+                    if room==0:
+                        continue
+                    else:
+                        temp[2]=0
+                    if temp in visited:
+                        continue
+                    else:
+                        frontier.append(temp)
+                        visited.append(temp)
+                        step=path[tuple(node)]
+                        path[tuple(temp)]=step+act
+                        #print 'frontier: '
+                        #print frontier
