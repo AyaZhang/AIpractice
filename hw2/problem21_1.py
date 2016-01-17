@@ -10,7 +10,7 @@ for line in fileinput.input():
 
     try:
         arrangement = [int(x.strip()) for x in line.split(',')]
-        print arrangement
+        print(arrangement)
 
     except:
         sys.exit('invalid input')
