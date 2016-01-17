@@ -5,6 +5,7 @@ Xinyi Ma xim002@ucsd.edu
 
 import sys
 import fileinput
+from collections import deque
 #Problem21_1
 for line in fileinput.input():
 
@@ -31,15 +32,15 @@ for line in fileinput.input():
     else:
         print('False')
 
-#Problem21_2
-    frontier=[arrangement]
+#Problem21_2  BFS
+    frontier=deque([arrangement])
     visited=[arrangement]
     path={}
     path[tuple(arrangement)]=''
-    action='SRL'
+    action='LRS'
     while len(frontier)!=0:
         #print len(frontier)
-        node=frontier.pop()
+        node=frontier.popleft()
         #print 'This is node: '
         #print node
         #print 'path: '+path[tuple(node)]

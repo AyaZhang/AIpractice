@@ -31,15 +31,18 @@ for line in fileinput.input():
     else:
         print('False')
 
-#Problem21_3
+#Problem21_4 depth-limit search
     frontier=[arrangement]
     visited=[arrangement]
     path={}
     path[tuple(arrangement)]=''
     action='SRL'
-    while len(frontier)!=0:
+    depth=0
+    while len(frontier)!=0 and depth < 5:
         #print len(frontier)
         node=frontier.pop()
+        depth+=1
+        #print depth
         #print 'This is node: '
         #print node
         #print 'path: '+path[tuple(node)]
@@ -90,6 +93,7 @@ for line in fileinput.input():
                             step=path[tuple(node)]
                             path[tuple(temp)]=step+act
                     #print frontier
+    print 'Cannot find the goal'
 
 
 
