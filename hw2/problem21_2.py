@@ -50,7 +50,6 @@ for line in fileinput.input():
             print 'final path: '+path[tuple(node)]
             sys.exit()
         else:
-            room=node[2]
             step=path[tuple(node)]
             for act in action:
                 #print act

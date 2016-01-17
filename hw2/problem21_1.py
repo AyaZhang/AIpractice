@@ -1,6 +1,7 @@
 """
-Author: 
+Author:
 Yijun Zhang yiz160@ucsd.edu
+Xinyi Ma   xim002@ucsd.edu
 //TODO
 """
 import sys
