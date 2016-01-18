@@ -47,7 +47,6 @@ for line in fileinput.input():
             print(path[tuple(node)])
             sys.exit()
         
-        room = node[2]
         step = path[tuple(node)]
 
         for act in action:
