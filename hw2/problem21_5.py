@@ -1,16 +1,17 @@
 """
 author:
 Xinyi Ma xim002@ucsd.edu
+Yijun Zhang yiz160@ucsd.edu
 """
-from DFS import*
+from test import *
 import sys
 import fileinput
+
 #Problem21_1
 for line in fileinput.input():
 
     try:
         arrangement = [int(x.strip()) for x in line.split(',')]
-        print arrangement
 
     except:
         sys.exit('invalid input')
@@ -26,19 +27,18 @@ for line in fileinput.input():
 
     # determine whether the state is a goal state
     if arrangement[0] is 0 and arrangement[1] is 0:
-        print('True')
+        print('')
         sys.exit()
-    else:
-        print('False')
 
-#Problem21_5 iterative deepening DFS
-for i in range(1,9):
-    path=depth_first_search(arrangement,i)
-    print path
+    path = ''
 
+    for depth in range(0, 8):
 
+        found = depth_limited_search(arrangement, depth, path)
 
+        if found[0] is not None:
+            print(found[1])
+            sys.exit()
 
-
-
-
+    print('None')
+    sys.exit()

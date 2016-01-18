@@ -12,7 +12,6 @@ for line in fileinput.input():
 
     try:
         arrangement = [int(x.strip()) for x in line.split(',')]
-        print(arrangement)
 
     except:
         sys.exit('invalid input')
@@ -69,13 +68,3 @@ for line in fileinput.input():
                 visited.append(temp)
                 path[tuple(temp)]=step+act
     print('None')
-
-
-
-
-
-
-
-
-
-
