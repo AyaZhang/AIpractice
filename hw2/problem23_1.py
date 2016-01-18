@@ -12,8 +12,8 @@ from collections import deque
 lineNum = 0
 for line in fileinput.input():
 	try:
-		arrangment[lineNum] = [int(x.strip()) for x in line.split(',')]
-		length[lineNum] = len(arrangment[lineNum])
+		arrangement[lineNum] = [int(x.strip()) for x in line.split(',')]
+		length[lineNum] = len(arrangement[lineNum])
 		lineNum += 1
 	except:
 		sys.exit('invalid input')
