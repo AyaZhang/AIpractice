@@ -1,19 +1,19 @@
 """
-Author:
+author:
 Xinyi Ma xim002@ucsd.edu
 Yijun Zhang yiz160@ucsd.edu
 """
 
 import sys
 import fileinput
-from collections import deque
-#Problem21_1
+
+# Problem21_1
 for line in fileinput.input():
 
     try:
         arrangement = [int(x.strip()) for x in line.split(',')]
         length=len(arrangement)
-        #print arrangement
+        print(arrangement)
 
     except:
         sys.exit('invalid input')
@@ -40,21 +40,18 @@ for line in fileinput.input():
     if count==length-1:
         sys.exit('')
 
-#Problem21_2  BFS
-    frontier=deque([arrangement])
-    visited=[arrangement]
-    path={}
-    path[tuple(arrangement)]=''
-    action='LRS'
+#Problem21_3  DFS
+    frontier = [arrangement]
+    visited = [arrangement]
+    path = {}
+    path[tuple(arrangement)] = ''
+    action = 'SRL'
 
-    while len(frontier)!=0:
-        #print len(frontier)
-        node=frontier.popleft()
-        #print 'This is node: '
-        #print node
-        #print 'path: '+path[tuple(node)]
-        room=node[length-1]
-        
+    while len(frontier) != 0:
+        node = frontier.pop()
+        print 'this is node: '
+        print node
+        room = node[length-1]
         #find goal state
         count=0
         for k in range(0, length-1):
@@ -65,34 +62,14 @@ for line in fileinput.input():
         if count==length-1:
             print path[tuple(node)]
             sys.exit()
-        
-        #run BFS
-        step=path[tuple(node)]
+
+        #run DFS
+        step = path[tuple(node)]
 
         for act in action:
-            #print act
-            if act=='L':
-                temp=list(node)
-                temp[length-1]=room-1
-                if temp in visited:
-                    continue
-                elif temp[length-1]>=0:
-                    frontier.append(temp)
-                    visited.append(temp)
-                    path[tuple(temp)]=step+act
-
-            elif act=='R':
-                temp=list(node)
-                temp[length-1]=room+1
-                if temp in visited:
-                    continue
-                elif temp[length-1]<=length-1:
-                    frontier.append(temp)
-                    visited.append(temp)
-                    path[tuple(temp)]=step+act
-
-            elif act=='S':
-                temp=list(node)
+            print act
+            if act == 'S':
+                temp = list(node)
                 temp[room]=0
                 if temp in visited:
                     continue
@@ -101,15 +78,23 @@ for line in fileinput.input():
                     visited.append(temp)
                     path[tuple(temp)]=step+act
 
-            #print frontier
+            elif act == 'R':
+                temp = list(node)
+                temp[length-1] = room+1
+                if temp in visited:
+                    continue
+                elif temp[length-1]<=length-1:
+                    frontier.append(temp)
+                    visited.append(temp)
+                    path[tuple(temp)]=step+act
 
-
-
-
-
-
-
-
-
-
-
+            elif act == 'L':
+                temp = list(node)
+                temp[length-1] = room-1
+                if temp in visited:
+                    continue
+                elif temp[length-1]>=0:
+                    frontier.append(temp)
+                    visited.append(temp)
+                    path[tuple(temp)]=step+act
+            print frontier
