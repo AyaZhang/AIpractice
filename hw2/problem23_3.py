@@ -42,8 +42,6 @@ for i in range(0, row-1):
             count += 1
         else:
             break
-    if count != column:
-        break
 # Check if they are all zeros
 if count == (row-1)*column:
     sys.exit('')
@@ -64,7 +62,7 @@ while len(frontier) != 0:
     print 'this is node: '
     print node
     room = node[row-1]
-    print room
+    #print room
 
     #check goal state
     count = 0
@@ -74,8 +72,6 @@ while len(frontier) != 0:
                 count += 1
             else:
                 break
-        if count != column:
-            break
     # Check if they are all zeros
     if count == (row-1)*column:
         print 'kkkk d'
@@ -94,6 +90,7 @@ while len(frontier) != 0:
             if temp in visited:
                 continue
             else:
+                print 'suck'
                 frontier.append(temp)
                 visited.append(temp)
                 path[str(tuple(temp))]=step+act
