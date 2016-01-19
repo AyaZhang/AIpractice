@@ -1,8 +1,6 @@
 """
 author:
 Yijun Zhang yiz160@ucsd.edu
-Xinyi Ma xim002@ucsd.edu
-Yuanchi Ha yuha@ucsd.edu
 """
 
 import sys
@@ -14,7 +12,7 @@ class Node:
     def __init__(self, state, cost, path):
         self.state = state
         self.cost = cost
-        self.heuristic = state[0] + state[1]
+        self.heuristic = sum(state[:-1])
         self.path = path
 
     def __lt__(self, other):
@@ -24,22 +22,33 @@ class Node:
 
     def successors(self):
         left = list(self.state)
-        left[2] = 0
+        if left[-1] > 0:
+            left[-1] -= 1
         step = self.path + 'L'
         left_successor = Node(left, self.cost + 1, step)
 
         right = list(self.state)
-        right[2] = 1
+        if right[-1] < len(right) - 2:
+            right[-1] += 1
         step = self.path + 'R'
         right_successor = Node(right, self.cost + 1, step)
 
         suck = list(self.state)
-        suck[suck[2]] = 0
+        suck[suck[len(suck) - 1]] = 0
         step = self.path + 'S'
         suck_successor = Node(suck, self.cost + 1, step)
 
         return [left_successor, right_successor, suck_successor]
 
+def isGoal(state):
+    flag = True
+
+    for k in range(0, len(state) - 1):
+        if state[k] == 1:
+            flag = False
+            break
+
+    return flag
 
 #Problem21_1
 for line in fileinput.input():
@@ -50,17 +59,17 @@ for line in fileinput.input():
     except:
         sys.exit('invalid input')
 
-    # more than 3 numbers in the same line
-    if len(arrangement) > 3:
-        sys.exit('invalid input')
-
     # initial state not valid
-    for k in range(0, 3):
+    length = len(arrangement)
+    for k in range(0, length - 1):
         if arrangement[k] not in [0, 1]:
             sys.exit('invalid input')
 
+    if arrangement[length - 1] >= length - 1:
+        sys.exit('invalid input')
+
     # determine whether the state is a goal state
-    if arrangement[0] is 0 and arrangement[1] is 0:
+    if isGoal(arrangement):
         print('')
         sys.exit()
 
@@ -75,7 +84,7 @@ for line in fileinput.input():
         q = openlist.get()
 
         for child in q.successors():
-            if child.state[0] == 0 and child.state[1] == 0:
+            if isGoal(child.state):
                 print(child.path)
                 sys.exit()
 
