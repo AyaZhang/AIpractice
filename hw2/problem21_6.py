@@ -9,28 +9,32 @@ from queue import PriorityQueue
 
 class Node:
 
-    def __init__(self, state, cost):
+    def __init__(self, state, cost, path):
         self.state = state
         self.cost = 0
         self.heuristic = state[0] + state[1]
+        self.path = path
 
-    def __cmp__(self, other):
+    def __lt__(self, other):
         myf = self.cost + self.heuristic
         otherf = other.cost + other.heuristic
-        return cmp(myf, otherf)
+        return myf < otherf
 
-    def successors():
-        left = list(arrangement)
+    def successors(self):
+        left = list(self.state)
         left[2] = 0
-        left_successor = Node(left, self.cost + 1)
+        step = self.path + 'L'
+        left_successor = Node(left, self.cost + 1, step)
 
-        right = list(arrangement)
+        right = list(self.state)
         right[2] = 1
-        right_successor = Node(right, self.cost + 1)
+        step = self.path + 'R'
+        right_successor = Node(right, self.cost + 1, step)
 
-        suck = list(arrangement)
-        suck[arrangement[2]] = 0
-        suck_successor = Node(suck, self.cost + 1)
+        suck = list(self.state)
+        suck[suck[2]] = 0
+        step = self.path + 'S'
+        suck_successor = Node(suck, self.cost + 1, step)
 
         return [left_successor, right_successor, suck_successor]
 
@@ -62,11 +66,31 @@ for line in fileinput.input():
     openlist = PriorityQueue()
     closelist = []
 
-    start = Node(arrangement, 0)
+    start = Node(arrangement, 0, '')
     openlist.put(start)
 
     while not openlist.empty():
         q = openlist.get()
 
         for child in q.successors():
+            if child.state[0] == 0 and child.state[1] == 0:
+                print(child.path)
+                sys.exit()
+
+            if child.state == q.state:
+               continue
+
+            for i in openlist.queue:
+                if i < child:
+                    continue
+
+            for j in closelist:
+                if j < child:
+                    continue
             
+            openlist.put(child)
+
+        closelist.append(q)
+
+    print('None')
+    sys.exit()
