@@ -2,6 +2,7 @@
 Author:
 Xinyi Ma xim002@ucsd.edu
 Yijun Zhang yiz160@ucsd.edu
+Yuanchi Ha yuha@ucsd.edu
 """
 
 import sys
@@ -90,7 +91,7 @@ while len(frontier) != 0:
                 visited.append(temp)
                 path[str(tuple(temp))] = step + act
 
-        if act=='U':
+        elif act=='U':
             temp=list(node)
             temp[row-1][0]=room[0]-1
             if temp in visited:
@@ -110,4 +111,26 @@ while len(frontier) != 0:
                 frontier.append(temp)
                 visited.append(temp)
                 path[str(tuple(temp))] = step + act
+
+        elif act=='D':
+            temp=list(node)
+            temp[row-1][0]=room[0]+1
+            if temp in visited:
+                continue
+            elif temp[row-1][0]<=row-2:
+                frontier.append(temp)
+                visited.append(temp)
+                path[tuple(temp)]=step+act
+
+
+        elif act == 'S':
+            temp = list(node)
+            temp[room[0]][room[1]]=0
+            if temp in visited:
+                continue
+            else:
+                frontier.append(temp)
+                visited.append(temp)
+                path[str(tuple(temp))]=step+act
+
 
