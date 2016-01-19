@@ -100,6 +100,7 @@ while len(frontier) != 0:
                                 frontier.append(temp)
                                 visited.append(temp)
                                 path[str(tuple(temp))] = step + act
+<<<<<<< HEAD
                 if act == 'S':
                         temp = list(node)
                         temp[room[0]][room[1]]=0
@@ -119,6 +120,8 @@ while len(frontier) != 0:
                                 frontier.append(temp)
                                 visited.append(temp)
                                 path[tuple(temp)]=step+act
+=======
+>>>>>>> 42172d30970d825c21b6bd3f4468bf5fcbb33fa8
 
                 if act=='D':
                         temp=list(node)
