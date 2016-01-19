@@ -58,6 +58,7 @@ path[str(tuple(lines))] = ''
 action = 'SDRUL'
 
 while len(frontier) != 0:
+    print len(frontier)
     node = frontier.pop()
     print 'this is node: '
     print node
@@ -76,14 +77,16 @@ while len(frontier) != 0:
             break
     # Check if they are all zeros
     if count == (row-1)*column:
-        sys.exit('')
+        print 'kkkk d'
+        print path[str(tuple(node))]
+        sys.exit()
 
 
     #run DFS
     step=path[str(tuple(node))]
 
     for act in action:
-        #print act
+        print act
         if act == 'S':
             temp = list(node)
             temp[room[0]][room[1]]=0
@@ -136,4 +139,5 @@ while len(frontier) != 0:
                 frontier.append(temp)
                 visited.append(temp)
                 path[str(tuple(temp))] = step + act
+        print frontier
 
