@@ -2,6 +2,7 @@
 Author:
 Xinyi Ma xim002@ucsd.edu
 Yijun Zhang yiz160@ucsd.edu
+Yuanchi Ha yuha@ucsd.edu
 """
 
 import sys
@@ -42,11 +43,14 @@ for i in range(0, row-1):
                     count += 1
             else:
                     break
+            if count != column:
+                break
 
-# Check if they are all zeros        
+# Check if they are all zeros
 if count == (row-1)*column:
-        sys.exit('')
-           
+    sys.exit('')
+
+
 #Problem23_2 BFS
 frontier = deque([lines])
 print frontier
@@ -65,6 +69,8 @@ while len(frontier) != 0:
                 for v in range(0, column-1, 2):
                         if int(node[k][v]) == 0:
                                 count+=1
+                        else:
+                                break
 
         if count == (length-1)*column:
                 print path[tuple(node)]
@@ -84,7 +90,7 @@ while len(frontier) != 0:
                                 visited.append(temp)
                                 path[str(tuple(temp))] = step + act
 
-                elif act == 'R':
+                if act == 'R':
                         temp = list(node)
                         temp[row-1][1] = (room[1])+1
                         print temp
@@ -94,5 +100,35 @@ while len(frontier) != 0:
                                 frontier.append(temp)
                                 visited.append(temp)
                                 path[str(tuple(temp))] = step + act
-                                
+<<<<<<< HEAD
+                if act == 'S':
+                        temp = list(node)
+                        temp[room[0]][room[1]]=0
+                        if temp in visited:
+                                continue
+                        else:
+                                frontier.append(temp)
+                                visited.append(temp)
+                                path[str(tuple(temp))]=step+act
 
+                if act=='U':
+                        temp=list(node)
+                        temp[row-1][0]=room[0]-1
+                        if temp in visited:
+                                continue
+                        elif temp[row-1][0]>=0:
+                                frontier.append(temp)
+                                visited.append(temp)
+                                path[tuple(temp)]=step+act
+=======
+>>>>>>> 42172d30970d825c21b6bd3f4468bf5fcbb33fa8
+
+                if act=='D':
+                        temp=list(node)
+                        temp[row-1][0]=room[0]+1
+                        if temp in visited:
+                                continue
+                        elif temp[row-1][0]<=row-2:
+                                frontier.append(temp)
+                                visited.append(temp)
+                                path[tuple(temp)]=step+act
