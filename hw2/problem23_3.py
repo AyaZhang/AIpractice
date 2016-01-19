@@ -9,9 +9,8 @@ import sys
 import fileinput
 from collections import deque
 
-#Problem23_1
+#Problem23_2
 
-lineNum = 0
 input = sys.stdin.read()
 text = input.splitlines()
 row = len(text)
@@ -60,6 +59,7 @@ path[str(tuple(lines))] = ''
 action = 'SDRUL'
 
 while len(frontier) != 0:
+    print len(frontier)
     node = frontier.pop()
     print 'this is node: '
     print node
@@ -70,7 +70,7 @@ while len(frontier) != 0:
     count = 0
     for i in range(0, row-1):
         for j in range(0, column):
-            if (lines[i][j] is 0):
+            if (node[i][j] is 0):
                 count += 1
             else:
                 break
@@ -78,14 +78,16 @@ while len(frontier) != 0:
             break
     # Check if they are all zeros
     if count == (row-1)*column:
-        sys.exit('')
+        print 'kkkk d'
+        print path[str(tuple(node))]
+        sys.exit()
 
 
     #run DFS
     step=path[str(tuple(node))]
 
     for act in action:
-        #print act
+        print act
         if act == 'S':
             temp = list(node)
             temp[room[0]][room[1]]=0
@@ -96,16 +98,6 @@ while len(frontier) != 0:
                 visited.append(temp)
                 path[str(tuple(temp))]=step+act
 
-        if act=='U':
-            temp=list(node)
-            temp[row-1][0]=room[0]-1
-                if temp in visited:
-                    continue
-            elif temp[row-1][0]>=0:
-                frontier.append(temp)
-                visited.append(temp)
-                path[tuple(temp)]=step+act
-
         if act=='D':
             temp=list(node)
             temp[row-1][0]=room[0]+1
@@ -115,4 +107,38 @@ while len(frontier) != 0:
                 frontier.append(temp)
                 visited.append(temp)
                 path[tuple(temp)]=step+act
+
+        elif act == 'R':
+            temp = list(node)
+            temp[row-1][1] = (room[1])+1
+            print temp
+            if temp in visited:
+                continue
+            elif temp[row-1][1] <= column-1:
+                frontier.append(temp)
+                visited.append(temp)
+                path[str(tuple(temp))] = step + act
+
+        elif act=='U':
+            temp=list(node)
+            temp[row-1][0]=room[0]-1
+            if temp in visited:
+                continue
+            elif temp[row-1][0]>=0:
+                frontier.append(temp)
+                visited.append(temp)
+                path[tuple(temp)]=step+act
+
+
+        elif act == 'L':
+            temp = list(node)
+            temp[row-1][1] = (room[1])-1
+            print temp
+            if temp in visited:
+                continue
+            elif temp[row-1][1] >= 0:
+                frontier.append(temp)
+                visited.append(temp)
+                path[str(tuple(temp))] = step + act
+        print frontier
 

@@ -9,9 +9,8 @@ import sys
 import fileinput
 from collections import deque
 
-#Problem23_1
+#Problem23_2
 
-lineNum = 0
 input = sys.stdin.read()
 text = input.splitlines()
 row = len(text)
@@ -39,12 +38,12 @@ for i in range(0,row-1):
 count = 0
 for i in range(0, row-1):
     for j in range(0, column):
-            if (lines[i][j] is 0):
-                    count += 1
-            else:
-                    break
-            if count != column:
-                break
+        if (lines[i][j] is 0):
+            count += 1
+        else:
+            break
+    if count != column:
+        break
 
 # Check if they are all zeros
 if count == (row-1)*column:
@@ -60,75 +59,78 @@ path[str(tuple(lines))] = ''
 action = 'LURDS'
 
 while len(frontier) != 0:
-        length = len(lines)
-        node = frontier.popleft()
-        room = node[row-1]
-        # Find goal state
-        count = 0
-        for k in range(0, length-1):
-                for v in range(0, column-1, 2):
-                        if int(node[k][v]) == 0:
-                                count+=1
-                        else:
-                                break
+    node = frontier.popleft()
+    room = node[row-1]
+    
+    # Find goal state
+    count = 0
+    for k in range(0, row-1):
+        for v in range(0, column-1, 2):
+            if int(node[k][v]) == 0:
+                count+=1
+            else:
+                break
+        if count != column:
+            break
 
-        if count == (length-1)*column:
-                print path[tuple(node)]
-                sys.exit()
-                
-        #run BFS
-        step = path[str(tuple(node))]
-        for act in action:
-                if act == 'L':
-                        temp = list(node)
-                        temp[row-1][1] = (room[1])-1
-                        print temp
-                        if temp in visited:
-                                continue
-                        elif temp[row-1][1] >= 0:
-                                frontier.append(temp)
-                                visited.append(temp)
-                                path[str(tuple(temp))] = step + act
+    if count == (row-1)*column:
+        print path[str(tuple(node))]
+        sys.exit()
+        
+    #run BFS
+    step = path[str(tuple(node))]
+    for act in action:
+        if act == 'L':
+            temp = list(node)
+            temp[row-1][1] = (room[1])-1
+            print temp
+            if temp in visited:
+                continue
+            elif temp[row-1][1] >= 0:
+                frontier.append(temp)
+                visited.append(temp)
+                path[str(tuple(temp))] = step + act
 
-                if act == 'R':
-                        temp = list(node)
-                        temp[row-1][1] = (room[1])+1
-                        print temp
-                        if temp in visited:
-                                continue
-                        elif temp[row-1][1] <= column-1:
-                                frontier.append(temp)
-                                visited.append(temp)
-                                path[str(tuple(temp))] = step + act
-<<<<<<< HEAD
-                if act == 'S':
-                        temp = list(node)
-                        temp[room[0]][room[1]]=0
-                        if temp in visited:
-                                continue
-                        else:
-                                frontier.append(temp)
-                                visited.append(temp)
-                                path[str(tuple(temp))]=step+act
+        elif act=='U':
+            temp=list(node)
+            temp[row-1][0]=room[0]-1
+            if temp in visited:
+                continue
+            elif temp[row-1][0]>=0:
+                frontier.append(temp)
+                visited.append(temp)
+                path[tuple(temp)]=step+act
 
-                if act=='U':
-                        temp=list(node)
-                        temp[row-1][0]=room[0]-1
-                        if temp in visited:
-                                continue
-                        elif temp[row-1][0]>=0:
-                                frontier.append(temp)
-                                visited.append(temp)
-                                path[tuple(temp)]=step+act
-=======
->>>>>>> 42172d30970d825c21b6bd3f4468bf5fcbb33fa8
+        elif act == 'R':
+            temp = list(node)
+            temp[row-1][1] = (room[1])+1
+            print temp
+            if temp in visited:
+                continue
+            elif temp[row-1][1] <= column-1:
+                frontier.append(temp)
+                visited.append(temp)
+                path[str(tuple(temp))] = step + act
 
-                if act=='D':
-                        temp=list(node)
-                        temp[row-1][0]=room[0]+1
-                        if temp in visited:
-                                continue
-                        elif temp[row-1][0]<=row-2:
-                                frontier.append(temp)
-                                visited.append(temp)
-                                path[tuple(temp)]=step+act
+        elif act=='D':
+            temp=list(node)
+            temp[row-1][0]=room[0]+1
+            if temp in visited:
+                continue
+            elif temp[row-1][0]<=row-2:
+                frontier.append(temp)
+                visited.append(temp)
+                path[tuple(temp)]=step+act
+
+
+        elif act == 'S':
+            temp = list(node)
+            temp[room[0]][room[1]]=0
+            if temp in visited:
+                continue
+            else:
+                frontier.append(temp)
+                visited.append(temp)
+                path[str(tuple(temp))]=step+act
+
+
