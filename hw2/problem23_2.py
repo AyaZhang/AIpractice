@@ -45,16 +45,17 @@ for i in range(0, row-1):
     arrangement = [int(x.strip()) for x in line.split(',')]
     length = len(arrangement)
     for j in range(0, length):
-            if (arrangement[j] is 0):
-                    count += 1
-            else:
-                    break
-    if count != 3:
-         break
-# Check if they are all zeros        
+        if (arrangement[j] is 0):
+            count += 1
+        else:
+            break
+    if count != length:
+        break
+# Check if they are all zeros
 if count == (row-1)*column:
-        sys.exit('')
-           
+    sys.exit('')
+
+
 #Problem23_2 BFS
 frontier = deque([lines])
 print frontier
@@ -72,5 +73,4 @@ while len(frontier) != 0:
         count = 0
         #for k in range(0, length-1):
  #               if node[k] is 0:
-        
 
