@@ -11,35 +11,50 @@ from queue import PriorityQueue
 
 class Node:
 
-    def __init__(self, state, cost, path):
+    def __init__(self, state, cost, path, order):
         self.state = state
         self.cost = cost
-        self.heuristic = state[0] + state[1]
+        self.heuristic = sum(state[:-1])
         self.path = path
+        self.order = order
 
     def __lt__(self, other):
         myf = self.cost + self.heuristic
         otherf = other.cost + other.heuristic
-        return myf < otherf
+        if myf != otherf:
+            return myf < otherf
+        else:
+            return self.order < other.order
 
     def successors(self):
+        toRet = []
+        global insertion_order 
+
         left = list(self.state)
-        left[2] = 0
-        step = self.path + 'L'
-        left_successor = Node(left, self.cost + 1, step)
+        if left[-1] > 0:
+            left[-1] -= 1
+            step = self.path + 'L'
+            insertion_order += 1
+            left_successor = Node(left, self.cost + 1, step, insertion_order)
+            toRet.append(left_successor)
 
         right = list(self.state)
-        right[2] = 1
-        step = self.path + 'R'
-        right_successor = Node(right, self.cost + 1, step)
+        if right[-1] < len(right) - 2:
+            right[-1] += 1
+            step = self.path + 'R'
+            insertion_order += 1
+            right_successor = Node(right, self.cost + 1, step, insertion_order)
+            toRet.append(right_successor)
 
         suck = list(self.state)
-        suck[suck[2]] = 0
-        step = self.path + 'S'
-        suck_successor = Node(suck, self.cost + 1, step)
+        if suck[suck[len(suck) - 1]]!= 0:
+            suck[suck[len(suck) - 1]] = 0
+            step = self.path + 'S'
+            insertion_order += 1
+            suck_successor = Node(suck, self.cost + 1, step, insertion_order)
+            toRet.append(suck_successor)
 
-        return [left_successor, right_successor, suck_successor]
-
+        return toRet
 
 #Problem21_1
 for line in fileinput.input():
@@ -67,8 +82,9 @@ for line in fileinput.input():
     # A* search
     openlist = PriorityQueue()
     closelist = []
+    insertion_order = 0
 
-    start = Node(arrangement, 0, '')
+    start = Node(arrangement, 0, '', 0)
     openlist.put(start)
 
     while not openlist.empty():
@@ -78,9 +94,6 @@ for line in fileinput.input():
             if child.state[0] == 0 and child.state[1] == 0:
                 print(child.path)
                 sys.exit()
-
-            if child.state == q.state:
-                continue
 
             for i in openlist.queue:
                 if i < child:
