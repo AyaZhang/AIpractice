@@ -17,7 +17,13 @@ row = len(lines)
 column = len(lines[0].split(','))
 
 # Initial state not valid
+<<<<<<< HEAD
 if (int(lines[row-1][0]) not in range(0,row-1)) or (int(lines[row-1][2]) not in range(0,column)):
+=======
+if (lines[row-1][0] not in [0,row-1]) or (lines[row-1][2] not in [0,column-1]):
+        print lines[row-1][0]
+        print lines[row-1][2]
+>>>>>>> 31bc533dace116b6fab0584e186022d8479f8125
         sys.exit('invalid input: last line')
         
 for line in lines:
@@ -33,6 +39,7 @@ for line in lines:
                         sys.exit('invalid input')
 
         # Whether the state is a goal state
+<<<<<<< HEAD
         if len(line) is 3:
                 continue
         else:
@@ -45,6 +52,8 @@ for line in lines:
 print('True')
 
 sys.exit()
+=======
+>>>>>>> 31bc533dace116b6fab0584e186022d8479f8125
         
 
 
