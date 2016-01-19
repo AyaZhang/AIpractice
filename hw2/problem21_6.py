@@ -11,7 +11,7 @@ class Node:
 
     def __init__(self, state, cost, path):
         self.state = state
-        self.cost = 0
+        self.cost = cost
         self.heuristic = state[0] + state[1]
         self.path = path
 
@@ -78,7 +78,7 @@ for line in fileinput.input():
                 sys.exit()
 
             if child.state == q.state:
-               continue
+                continue
 
             for i in openlist.queue:
                 if i < child:
