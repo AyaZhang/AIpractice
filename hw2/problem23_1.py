@@ -15,17 +15,18 @@ lines = input.splitlines()
 print lines
 row = len(lines)
 column = len(lines[0].split(','))
+print row
+print 'this is col'
+print column
 
 # Initial state not valid
-if (lines[row-1][0] not in [0,row-1]) or (lines[row-1][2] not in [0,column-1]):
-        print lines[row-1][0]
-        print lines[row-1][2]
-        sys.exit('invalid input: last line')
+if (int(lines[row-1][0]) not in range(0,row-1)) or (int(lines[row-1][2]) not in range(0,column)):
+    sys.exit('invalid input: last line')
         
 for line in lines:
         try:
-                arrangement = [int(x.strip()) for x in line.split(',')]
-                length = len(arrangement)
+            arrangement = [int(x.strip()) for x in line.split(',')]
+            length = len(arrangement)
 
         except:
                 sys.exit('invalid input')
