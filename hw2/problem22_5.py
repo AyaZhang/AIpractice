@@ -12,6 +12,7 @@ def depth_limited_search(node, depth, path):
     arrange = [int(x.strip()) for x in line.split(',')]
     visited = [arrange]
     frontier = [arrange]
+    room = node[length-1]
     print node[0:]
     if depth == 0 and node[0:-1] == 0:
         return (node, path)
@@ -22,7 +23,7 @@ def depth_limited_search(node, depth, path):
         for act in action:
             if act=='S':
                 temp=list(node)
-                temp[temp[-1]]=0
+                temp[room]=0
                 if temp in visited:
                     continue
                 else:
@@ -33,7 +34,7 @@ def depth_limited_search(node, depth, path):
             elif act=='R':
                 temp=list(node)
                 if temp[-1] in range(0,len(temp)-1):
-                    temp[-1] += 1
+                    temp[-1] = room + 1
                 if temp in visited:
                     continue
                 elif temp[length-1]<=length-1:
@@ -44,7 +45,7 @@ def depth_limited_search(node, depth, path):
             elif act=='L':
                 temp=list(node)
                 if temp[-1] in range(1,len(temp)):
-                    temp[-1] -= 1
+                    temp[-1] = room - 1
                 if temp in visited:
                     continue
                 elif temp[length-1]>=0:
