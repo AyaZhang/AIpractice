@@ -14,7 +14,6 @@ for line in fileinput.input():
     try:
         arrangement = [int(x.strip()) for x in line.split(',')]
         length=len(arrangement)
-        print(arrangement)
 
     except:
         sys.exit('invalid input')
@@ -33,7 +32,6 @@ for line in fileinput.input():
     # determine whether the state is a goal state
     count=0
     for k in range(0, length-1):
-        #print arrangement[k]
         if arrangement[k] is 0:
             count+=1
         else:
@@ -50,8 +48,6 @@ for line in fileinput.input():
 
     while len(frontier) != 0:
         node = frontier.pop()
-        #print 'this is node: '
-        #print node
         room = node[length-1]
         visited.append(node)
         
@@ -70,7 +66,6 @@ for line in fileinput.input():
         step = path[id(node)]
 
         for act in action:
-            #print act
             if act == 'S':
                 temp = list(node)
                 temp[room]=0
@@ -78,7 +73,6 @@ for line in fileinput.input():
                     continue
                 else:
                     frontier.append(temp)
-                    #visited.append(temp)
                     path[id(temp)]=step+act
 
             elif act == 'R':
@@ -86,9 +80,8 @@ for line in fileinput.input():
                 temp[length-1] = room+1
                 if temp in visited:
                     continue
-                elif temp[length-1]<=length-1:
+                elif temp[length-1]<=length-2:
                     frontier.append(temp)
-                    #visited.append(temp)
                     path[id(temp)]=step+act
 
             elif act == 'L':
@@ -98,6 +91,5 @@ for line in fileinput.input():
                     continue
                 elif temp[length-1]>=0:
                     frontier.append(temp)
-                    #visited.append(temp)
                     path[id(temp)]=step+act
             #print frontier

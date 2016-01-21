@@ -33,24 +33,25 @@ for line in fileinput.input():
 
 #Problem21_4 depth-limit search
     frontier = [arrangement]
-    visited = [arrangement]
+    visited = []
     path = {}
-    path[tuple(arrangement)] = ''
+    path[id(arrangement)] = ''
     action = 'SRL'
-    depth = 0
+    depth = -1
 
-    while len(frontier) != 0 and depth < 5:
+    while len(frontier) != 0 and depth <= 5:
         node = frontier.pop()
         depth += 1
         room = node[2]
-
+        visited.append(node)
+        
         #find goal state
         if node[0] == 0 and node[1] == 0:
-            print(path[tuple(node)])
+            print(path[id(node)])
             sys.exit()
         
         room=node[2]
-        step=path[tuple(node)]
+        step=path[id(node)]
         for act in action:
             if act=='S':
                 temp=list(node)
@@ -66,6 +67,5 @@ for line in fileinput.input():
                 continue
             else:
                 frontier.append(temp)
-                visited.append(temp)
-                path[tuple(temp)]=step+act
+                path[id(temp)]=step+act
     print('None')
