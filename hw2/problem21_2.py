@@ -34,9 +34,9 @@ for line in fileinput.input():
 
 # Problem21_2  BFS
     frontier = deque([arrangement])
-    visited = [arrangement]
+    visited = []
     path = {}
-    path[tuple(arrangement)] = ''
+    path[id(arrangement)] = ''
     action = 'LRS'
 
     while len(frontier) != 0:
@@ -45,10 +45,10 @@ for line in fileinput.input():
 
         #find goal state
         if node[0] == 0 and node[1] == 0:
-            print(path[tuple(node)])
+            print(path[id(node)])
             sys.exit()
         
-        step = path[tuple(node)]
+        step = path[id(node)]
 
         for act in action:
             if act == 'S':
@@ -65,5 +65,4 @@ for line in fileinput.input():
                 continue
             else:
                 frontier.append(temp)
-                visited.append(temp)
-                path[tuple(temp)] = step + act
+                path[id(temp)] = step + act

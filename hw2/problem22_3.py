@@ -43,9 +43,9 @@ for line in fileinput.input():
 
 #Problem21_3  DFS
     frontier = [arrangement]
-    visited = [arrangement]
+    visited = []
     path = {}
-    path[tuple(arrangement)] = ''
+    path[id(arrangement)] = ''
     action = 'SRL'
 
     while len(frontier) != 0:
@@ -53,6 +53,7 @@ for line in fileinput.input():
         #print 'this is node: '
         #print node
         room = node[length-1]
+        visited.append(node)
         
         #find goal state
         count=0
@@ -62,14 +63,14 @@ for line in fileinput.input():
             else:
                 break
         if count==length-1:
-            print path[tuple(node)]
+            print path[id(node)]
             sys.exit()
 
         #run DFS
-        step = path[tuple(node)]
+        step = path[id(node)]
 
         for act in action:
-            print act
+            #print act
             if act == 'S':
                 temp = list(node)
                 temp[room]=0
@@ -77,8 +78,8 @@ for line in fileinput.input():
                     continue
                 else:
                     frontier.append(temp)
-                    visited.append(temp)
-                    path[tuple(temp)]=step+act
+                    #visited.append(temp)
+                    path[id(temp)]=step+act
 
             elif act == 'R':
                 temp = list(node)
@@ -87,8 +88,8 @@ for line in fileinput.input():
                     continue
                 elif temp[length-1]<=length-1:
                     frontier.append(temp)
-                    visited.append(temp)
-                    path[tuple(temp)]=step+act
+                    #visited.append(temp)
+                    path[id(temp)]=step+act
 
             elif act == 'L':
                 temp = list(node)
@@ -97,6 +98,6 @@ for line in fileinput.input():
                     continue
                 elif temp[length-1]>=0:
                     frontier.append(temp)
-                    visited.append(temp)
-                    path[tuple(temp)]=step+act
+                    #visited.append(temp)
+                    path[id(temp)]=step+act
             #print frontier
