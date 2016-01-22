@@ -12,7 +12,6 @@ from collections import deque
 lineNum = 0
 input = sys.stdin.read()
 text = input.splitlines()
-print text
 row = len(text)
 column = len(text[0].split(','))
 lines = []
@@ -23,9 +22,9 @@ for j in range(0,row):
 #vacumm location not valid
 if len(lines[row-1]) == 2:
     if (int(lines[row-1][0]) not in range(0,row-1)) or (int(lines[row-1][1]) not in range(0,column)):
-        sys.exit('invalid input: last line')
+        sys.exit('invalid input')
 else:
-    sys.exit('invalid input: last line')
+    sys.exit('invalid input')
 
 for i in range(0,row-1):
     # Initial state not valid

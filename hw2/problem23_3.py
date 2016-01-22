@@ -70,7 +70,7 @@ while len(frontier) != 0:
                 break
     # Check if they are all zeros
     if count == (row-1)*column:
-        print 'final path'
+        #print 'final path'
         print path[id(node)]
         sys.exit()
 

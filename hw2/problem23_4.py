@@ -98,8 +98,6 @@ while len(frontier) != 0 and depth <= MAX_DEPTH:
             else:
                 frontier.append(temp)
                 path[id(temp)]=step+act
-                #print 'frontier'
-                #print frontier
 
         elif act=='D':
             temp[row-1][0]=room[0]+1
@@ -108,8 +106,6 @@ while len(frontier) != 0 and depth <= MAX_DEPTH:
             elif temp[row-1][0]<=row-2:
                 frontier.append(temp)
                 path[id(temp)]=step+act
-                #print 'frontier'
-                #print frontier
 
         elif act == 'R':
             temp[row-1][1] = (room[1])+1
@@ -118,8 +114,7 @@ while len(frontier) != 0 and depth <= MAX_DEPTH:
             elif temp[row-1][1] <= column-1:
                 frontier.append(temp)
                 path[id(temp)]=step+act
-                #print 'frontier'
-                #print frontier
+
         elif act=='U':
             temp[row-1][0]=room[0]-1
             if temp in visited:
@@ -127,8 +122,6 @@ while len(frontier) != 0 and depth <= MAX_DEPTH:
             elif temp[row-1][0]>=0:
                 frontier.append(temp)
                 path[id(temp)]=step+act
-                #print 'frontier'
-                #print frontier
 
         elif act == 'L':
             temp[row-1][1] = (room[1])-1
@@ -137,7 +130,6 @@ while len(frontier) != 0 and depth <= MAX_DEPTH:
             elif temp[row-1][1] >= 0:
                 frontier.append(temp)
                 path[id(temp)]=step+act
-#print 'frontier'
-#        print frontier
+
 print('None')
 
