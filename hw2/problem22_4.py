@@ -10,7 +10,7 @@ import fileinput
 
 #Problem21_1
 for line in fileinput.input():
-
+    MAX_DEPTH = 5
     try:
         arrangement = [int(x.strip()) for x in line.split(',')]
         length=len(arrangement)
@@ -32,7 +32,6 @@ for line in fileinput.input():
     # determine whether the state is a goal state
     count=0
     for k in range(0, length-1):
-        #print arrangement[k]
         if arrangement[k] is 0:
             count+=1
         else:
@@ -42,17 +41,24 @@ for line in fileinput.input():
 
 #Problem21_4 depth-limit search
     frontier = [arrangement]
-    visited = [arrangement]
+    visited = []
     path = {}
-    path[tuple(arrangement)] = ''
+    path[id(arrangement)] = ''
     action = 'SRL'
-    depth = 0
-
-    while len(frontier) != 0 and depth < 5:
+    depth = -1
+    fronLen=len(frontier)
+    
+    while len(frontier) != 0 and depth <= MAX_DEPTH:
+        if fronLen != len(frontier)+1:
+            depth += 1
+        else:
+            depth=depth
+    
+        fronLen=len(frontier)
         node = frontier.pop()
-        depth += 1
         room = node[length-1]
-
+        visited.append(node)
+        
         #find goal state
         count=0
         for k in range(0, length-1):
@@ -61,11 +67,12 @@ for line in fileinput.input():
             else:
                 break
         if count==length-1:
-            print path[tuple(node)]
+            print path[id(node)]
             sys.exit()
         
         #run DFS
-        step=path[tuple(node)]
+        step=path[id(node)]
+
         for act in action:
             if act=='S':
                 temp=list(node)
@@ -74,26 +81,23 @@ for line in fileinput.input():
                     continue
                 else:
                     frontier.append(temp)
-                    visited.append(temp)
-                    path[tuple(temp)]=step+act
+                    path[id(temp)]=step+act
 
             elif act=='R':
                 temp=list(node)
-                temp[2]=1
+                temp[length-1] = room + 1
                 if temp in visited:
                     continue
-                elif temp[length-1]<=length-1:
+                elif temp[length-1]<=length-2:
                     frontier.append(temp)
-                    visited.append(temp)
-                    path[tuple(temp)]=step+act
+                    path[id(temp)]=step+act
 
             elif act=='L':
                 temp=list(node)
-                temp[2]=0
+                temp[length-1] = room - 1
                 if temp in visited:
                     continue
                 elif temp[length-1]>=0:
                     frontier.append(temp)
-                    visited.append(temp)
-                    path[tuple(temp)]=step+act
+                    path[id(temp)]=step+act
     print('None')

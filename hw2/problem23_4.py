@@ -10,7 +10,7 @@ import fileinput
 from collections import deque
 
 #Problem23_2
-
+MAX_DEPTH = 7
 input = sys.stdin.read()
 text = input.splitlines()
 row = len(text)
@@ -48,14 +48,22 @@ if count == (row-1)*column:
 
 
 
-#Problem23_2 DFS
+#Problem23_4 depth-limit search
 frontier = [lines]
 visited = []
 path = {}
 path[id(lines)] = ''
 action = 'SDRUL'
+depth = -1
+length=len(frontier)
 
-while len(frontier) != 0:
+while len(frontier) != 0 and depth <= MAX_DEPTH:
+    if length != len(frontier)+1:
+        depth += 1
+    else:
+        depth=depth
+
+    length=len(frontier)
     node = frontier.pop()
     room = list(node[row-1])
     visited.append(node)
@@ -70,14 +78,13 @@ while len(frontier) != 0:
                 break
     # Check if they are all zeros
     if count == (row-1)*column:
-        print 'final path'
+        #print 'final path'
         print path[id(node)]
         sys.exit()
 
 
     #run DFS
     step = path[id(node)]
-
 
     for act in action:
         temp=[]
@@ -91,7 +98,8 @@ while len(frontier) != 0:
             else:
                 frontier.append(temp)
                 path[id(temp)]=step+act
-
+                #print 'frontier'
+                #print frontier
 
         elif act=='D':
             temp[row-1][0]=room[0]+1
@@ -100,6 +108,8 @@ while len(frontier) != 0:
             elif temp[row-1][0]<=row-2:
                 frontier.append(temp)
                 path[id(temp)]=step+act
+                #print 'frontier'
+                #print frontier
 
         elif act == 'R':
             temp[row-1][1] = (room[1])+1
@@ -108,7 +118,8 @@ while len(frontier) != 0:
             elif temp[row-1][1] <= column-1:
                 frontier.append(temp)
                 path[id(temp)]=step+act
-
+                #print 'frontier'
+                #print frontier
         elif act=='U':
             temp[row-1][0]=room[0]-1
             if temp in visited:
@@ -116,7 +127,8 @@ while len(frontier) != 0:
             elif temp[row-1][0]>=0:
                 frontier.append(temp)
                 path[id(temp)]=step+act
-
+                #print 'frontier'
+                #print frontier
 
         elif act == 'L':
             temp[row-1][1] = (room[1])-1
@@ -125,4 +137,7 @@ while len(frontier) != 0:
             elif temp[row-1][1] >= 0:
                 frontier.append(temp)
                 path[id(temp)]=step+act
+#print 'frontier'
+#        print frontier
+print('None')
 
