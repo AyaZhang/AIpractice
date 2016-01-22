@@ -46,10 +46,10 @@ def depth_limited_search(node, depth, path):
             if child == node:
                 continue
             
-            found = depth_limited_search(child, depth - 1, path + act)
+            foundIn = depth_limited_search(child, depth - 1, path + act)
             
-            if found[0] is not None:
-                return found
+            if foundIn[0] is not None:
+                return foundIn
 
     return (None, path)
 
@@ -72,7 +72,7 @@ for line in fileinput.input():
     
     # determine whether the state is a goal state
     if isGoal(arrangement):
-        print('')
+        print ''
         sys.exit()
 
     path = ''
@@ -81,8 +81,8 @@ for line in fileinput.input():
     found = depth_limited_search(arrangement, 5, path)
 
     if found[0] is not None:
-        print(found[1])
+        print found[1]
         sys.exit()
 
-    print('None')
+    print 'None'
     sys.exit()
