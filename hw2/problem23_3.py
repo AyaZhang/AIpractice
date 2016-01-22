@@ -80,12 +80,12 @@ while len(frontier) != 0:
 
 
     for act in action:
-        temp=[]
+        temp = []
         for item in node:
             temp.append(list(item))
         
         if act == 'S':
-            temp[room[0]][room[1]]=0
+            temp[room[0]][room[1]] = 0
             if temp in visited:
                 continue
             else:
@@ -93,13 +93,13 @@ while len(frontier) != 0:
                 path[id(temp)]=step+act
 
 
-        elif act=='D':
-            temp[row-1][0]=room[0]+1
+        elif act == 'D':
+            temp[row-1][0] = room[0]+1
             if temp in visited:
                 continue
-            elif temp[row-1][0]<=row-2:
+            elif temp[row-1][0] <= row-2:
                 frontier.append(temp)
-                path[id(temp)]=step+act
+                path[id(temp)] = step+act
 
         elif act == 'R':
             temp[row-1][1] = (room[1])+1
@@ -107,15 +107,15 @@ while len(frontier) != 0:
                 continue
             elif temp[row-1][1] <= column-1:
                 frontier.append(temp)
-                path[id(temp)]=step+act
+                path[id(temp)] = step+act
 
-        elif act=='U':
-            temp[row-1][0]=room[0]-1
+        elif act == 'U':
+            temp[row-1][0] = room[0]-1
             if temp in visited:
                 continue
-            elif temp[row-1][0]>=0:
+            elif temp[row-1][0] >= 0:
                 frontier.append(temp)
-                path[id(temp)]=step+act
+                path[id(temp)] = step+act
 
 
         elif act == 'L':
@@ -124,5 +124,5 @@ while len(frontier) != 0:
                 continue
             elif temp[row-1][1] >= 0:
                 frontier.append(temp)
-                path[id(temp)]=step+act
+                path[id(temp)] = step+act
 
