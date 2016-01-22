@@ -47,7 +47,7 @@ def depth_limited_search(node, depth, path):
             elif act == 'S':
                 cur_x = node[-1][0]
                 cur_y = node[-1][1]
-                if child[cur_x][cur_y]!= 0:
+                if child[cur_x][cur_y] != 0:
                     child[cur_x][cur_y] = 0
             
             if child == node:
@@ -90,7 +90,7 @@ for i in range(0,row-1):
 
 # Whether the state is a goal state
 if isGoal(lines):
-    print('')
+    print ''
     sys.exit()
 
 
@@ -104,5 +104,5 @@ for depth in range(0, 10):
         print(found[1])
         sys.exit()
 
-print('None')
+print 'None'
 sys.exit()
