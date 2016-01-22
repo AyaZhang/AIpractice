@@ -8,9 +8,53 @@ Yuanchi Ha yuha@ucsd.edu
 import sys
 import fileinput
 
-#Problem21_1
+def isGoal(state):
+    for i in state[:-1]:
+        if i != 0:
+            return False
+    return True
+
+def depth_limited_search(node, depth, path):
+
+    if node in visited:
+        return (None, path)
+
+    if isGoal(node):
+        return (node, path)
+
+    visited.append(node)
+
+    action = 'LRS'
+
+    if depth > 0:
+        for act in action:
+
+            child = list(node)
+
+            if act == 'L':
+                if child[2] > 0:
+                    child[2] = 0
+            
+            elif act == 'R':
+                if child[2] < len(node) - 2:
+                    child[2] = 1
+
+            elif act == 'S':
+                if child[child[2]]!= 0:
+                    child[child[2]] = 0
+            
+            if child == node:
+                continue
+            
+            found = depth_limited_search(child, depth - 1, path + act)
+            
+            if found[0] is not None:
+                return found
+
+    return (None, path)
+
+
 for line in fileinput.input():
-    MAX_DEPTH = 5
     try:
         arrangement = [int(x.strip()) for x in line.split(',')]
 
@@ -25,54 +69,20 @@ for line in fileinput.input():
     for k in range(0, 3):
         if arrangement[k] not in [0, 1]:
             sys.exit('invalid input')
-
+    
     # determine whether the state is a goal state
-    if arrangement[0] is 0 and arrangement[1] is 0:
+    if isGoal(arrangement):
         print('')
         sys.exit()
 
-#Problem21_4 depth-limit search
-    frontier = [arrangement]
-    visited = []
-    path = {}
-    path[id(arrangement)] = ''
-    action = 'SRL'
-    depth = -1
-    length=len(frontier)
+    path = ''
+    visited = list()
 
-    while len(frontier) != 0 and depth <= MAX_DEPTH:
-        if length != len(frontier)+1:
-            depth += 1
-        else:
-            depth=depth
+    found = depth_limited_search(arrangement, 5, path)
 
-        length=len(frontier)
-        node = frontier.pop()
-        #depth += 1
-        room = node[2]
-        visited.append(node)
-        
-        #find goal state
-        if node[0] == 0 and node[1] == 0:
-            print(path[id(node)])
-            sys.exit()
-        
-        room=node[2]
-        step=path[id(node)]
-        for act in action:
-            if act=='S':
-                temp=list(node)
-                temp[room]=0
-            elif act=='R':
-                temp=list(node)
-                temp[2]=1
-            elif act=='L':
-                temp=list(node)
-                temp[2]=0
+    if found[0] is not None:
+        print(found[1])
+        sys.exit()
 
-            if temp in visited:
-                continue
-            else:
-                frontier.append(temp)
-                path[id(temp)]=step+act
     print('None')
+    sys.exit()

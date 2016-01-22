@@ -92,4 +92,5 @@ for line in fileinput.input():
                 elif temp[length-1]>=0:
                     frontier.append(temp)
                     path[id(temp)]=step+act
-            #print frontier
+    sys.exit('')
+
