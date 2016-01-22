@@ -45,7 +45,7 @@ class Node:
             toRet.append(right_successor)
 
         suck = list(self.state)
-        if suck[suck[len(suck) - 1]]!= 0:
+        if suck[suck[len(suck) - 1]] != 0:
             suck[suck[len(suck) - 1]] = 0
             step = self.path + 'S'
             insertion_order += 1
@@ -82,7 +82,7 @@ for line in fileinput.input():
 
     # determine whether the state is a goal state
     if isGoal(arrangement):
-        print('')
+        print ''
         sys.exit()
 
     # A* search
@@ -98,7 +98,7 @@ for line in fileinput.input():
 
         for child in q.successors():
             if isGoal(child.state):
-                print(child.path)
+                print child.path
                 sys.exit()
 
             for i in openlist.queue:
@@ -113,5 +113,5 @@ for line in fileinput.input():
 
         closelist.append(q)
 
-    print('None')
+    print 'None'
     sys.exit()
