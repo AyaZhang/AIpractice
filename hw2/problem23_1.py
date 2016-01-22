@@ -37,9 +37,9 @@ for i in range(0,row-1):
         if lines[i][k] is 0:
             continue
         else:
-            sys.exit('False')
+            sys.exit 'False'
         
-print('True')
+print 'True'
 
 sys.exit()
 
