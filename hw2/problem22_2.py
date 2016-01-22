@@ -92,7 +92,7 @@ for line in fileinput.input():
                 else:
                     frontier.append(temp)
                     path[id(temp)]=step+act
-
+    sys.exit()
 
 
 
