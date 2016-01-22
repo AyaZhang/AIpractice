@@ -59,7 +59,7 @@ for line in fileinput.input():
             else:
                 break
         if count==length-1:
-            print path[id(node)]
+            print(path[id(node)])
             sys.exit()
 
         #run DFS
