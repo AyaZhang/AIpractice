@@ -27,8 +27,8 @@ for line in fileinput.input():
 
     # determine whether the state is a goal state
     if arrangement[0] is 0 and arrangement[1] is 0:
-        print('True')
+        print 'True'
     else:
-        print('False')
+        print 'False'
 
     sys.exit()
