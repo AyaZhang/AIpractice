@@ -40,7 +40,7 @@ def depth_limited_search(node, depth, path):
                     child[-1] += 1
 
             elif act == 'S':
-                if child[child[-1]]!= 0:
+                if child[child[-1]] != 0:
                     child[child[-1]] = 0
             
             if child == node:
@@ -57,7 +57,7 @@ def depth_limited_search(node, depth, path):
 for line in fileinput.input():
     try:
         arrangement = [int(x.strip()) for x in line.split(',')]
-        length=len(arrangement)
+        length = len(arrangement)
 
     except:
         sys.exit('invalid input')
@@ -66,7 +66,7 @@ for line in fileinput.input():
     for k in range(0, length-1):
         if arrangement[k] not in [0, 1]:
             sys.exit('invalid input')
-    if arrangement[length-1]>=length-1:
+    if arrangement[length-1] >= length-1:
         sys.exit('invalid input')
     
     # determine whether the state is a goal state
