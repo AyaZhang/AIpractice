@@ -49,7 +49,7 @@ def depth_limited_search(node, depth, path):
             #   continue
             
 
-            print(child,path)
+            #print(child,path)
             found = depth_limited_search(child, depth - 1, path+act)
             
             if found[0] is not None:
