@@ -8,60 +8,56 @@ Yuanchi Ha yuha@ucsd.edu
 import sys
 import fileinput
 
+def isGoal(state):
+    for i in state[:-1]:
+        if i != 0:
+            return False
+    return True
+
 def depth_limited_search(node, depth, path):
-    arrange = [int(x.strip()) for x in line.split(',')]
-    visited = [arrange]
-    frontier = [arrange]
-    room = node[length-1]
-    print node[0:]
-    if depth == 0 and node[0:-1] == 0:
+    
+
+    if depth == 0 and isGoal(node):
         return (node, path)
 
-    action = 'SRL'
+    action = 'LRS'
 
     if depth > 0:
         for act in action:
             if act=='S':
-                temp=list(node)
-                temp[room]=0
-                if temp in visited:
+                child=list(node)
+                if child[child[length-1]]==0:
                     continue
                 else:
-                    frontier.append(temp)
-                    visited.append(temp)
-                    path += act
-        
+                    child[child[length-1]] = 0
+            
             elif act=='R':
-                temp=list(node)
-                if temp[-1] in range(0,len(temp)-1):
-                    temp[-1] = room + 1
-                if temp in visited:
+                child = list(node)
+                if child[length-1] < length-2:
+                    child[-1] += 1
+                else:
                     continue
-                elif temp[length-1]<=length-1:
-                    frontier.append(temp)
-                    visited.append(temp)
-                    path += act
-    
+            
             elif act=='L':
-                temp=list(node)
-                if temp[-1] in range(1,len(temp)):
-                    temp[-1] = room - 1
-                if temp in visited:
+                child = list(node)
+                if child[length-1] > 0:
+                    child[-1] -= 1
+                else:
                     continue
-                elif temp[length-1]>=0:
-                    frontier.append(temp)
-                    visited.append(temp)
-                    path += act
+            
+            #if child == list(node):
+            #   continue
+            
 
-
-            found = depth_limited_search(temp, depth - 1, path)
+            print(child,path)
+            found = depth_limited_search(child, depth - 1, path+act)
             
             if found[0] is not None:
                 return found
 
     return (None, path)
 
-#Problem21_1
+#Problem22_1
 for line in fileinput.input():
 
     try:
@@ -71,11 +67,7 @@ for line in fileinput.input():
     except:
         sys.exit('invalid input')
 
-    # more than 3 numbers in the same line
-    #if len(arrangement) > 3:
-    #    sys.exit('invalid input')
 
-    # initial state not valid
     for k in range(0, length-1):
         if arrangement[k] not in [0, 1]:
             sys.exit('invalid input')
@@ -96,7 +88,6 @@ for line in fileinput.input():
     path = ''
 
     for depth in range(0, 8):
-        
 
         found = depth_limited_search(arrangement, depth, path)
 
