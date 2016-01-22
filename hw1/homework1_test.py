@@ -2,16 +2,16 @@ from practice import *
 
 ############################################################
 # Problem 1a
-
-print 'Testing Problem 1a\n'
+"""
+print('Testing Problem 1a\n')
 
 string1 = 'Mary had a little lamb'
 ans1 = compute_max_word_length(string1)
-print 'test 1\nyour answer:\t', ans1, '\ncorrect answer:\t little'
+print('test 1\nyour answer:\t', ans1, '\ncorrect answer:\t little')
 
 string2 = 'good golly miss molly'
 ans2 = compute_max_word_length(string2)
-print 'test 2\nyour answer:\t', ans2, '\ncorrect answer:\t molly'
+print('test 2\nyour answer:\t', ans2, '\ncorrect answer:\t molly')
 
 string3 = 'a'
 ans3 = compute_max_word_length(string3)
@@ -92,12 +92,12 @@ print "test 1\nyour answer:\t", ans1, "\ncorrect answer:\t (set(['bad']), 2)"
 string2 = 'really really really bad bad bad'
 ans2 = compute_most_frequent_word(string2)
 print "test 2\nyour answer:\t", ans2, "\ncorrect answer:\t (set(['bad', 'really']), 3)"
-
-string3 = '\n\n\n\n\n\n  nnnn  abcde abcde abcde abcde'
+"""
+string3 = 'space space'
 ans3 = compute_most_frequent_word(string3)
-print "test 3\nyour answer:\t", ans3, "\ncorrect answer:\t (set(['abcde']), 4)"
+print("test 3\nyour answer:\t", ans3, "\ncorrect answer:\t (set([' ', 'space']), 2)")
 
-
+"""
 ############################################################
 # Problem 1e
 
@@ -143,3 +143,4 @@ print "test 3\nyour answer:\t", ans3, "\ncorrect answer:\t False"
 string4 = '(YY)'
 ans4 = nested_parentheses(string4)
 print "test 4\nyour answer:\t", ans4, "\ncorrect answer:\t False"
+"""

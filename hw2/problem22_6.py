@@ -55,14 +55,12 @@ class Node:
         return toRet
 
 def isGoal(state):
-    flag = True
 
     for k in range(0, len(state) - 1):
         if state[k] == 1:
-            flag = False
-            break
+            return False
 
-    return flag
+    return True
 
 #Problem21_1
 for line in fileinput.input():
