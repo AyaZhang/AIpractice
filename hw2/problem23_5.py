@@ -53,10 +53,10 @@ def depth_limited_search(node, depth, path):
             if child == node:
                 continue
             
-            found = depth_limited_search(child, depth - 1, path + act)
+            foundIn = depth_limited_search(child, depth - 1, path + act)
             
-            if found[0] is not None:
-                return found
+            if foundIn[0] is not None:
+                return foundIn
 
     return (None, path)
 
