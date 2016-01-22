@@ -9,8 +9,63 @@ import sys
 import fileinput
 from collections import deque
 
+def isGoal(state):
+    for i in state[:-1]:
+        for j in i:
+            if j != 0:
+                return False
+    return True
+
+def depth_limited_search(node, depth, path):
+
+    if node in visited:
+        return (None, path)
+
+    if isGoal(node):
+        return (node, path)
+
+    visited.append(node)
+
+    action = 'LURDS'
+
+    if depth > 0:
+        for act in action:
+
+            child = [row[:] for row in node]
+
+            if act == 'L':
+                if child[-1][1] > 0:
+                    child[-1][1] -= 1
+            
+            elif act == 'R':
+                if child[-1][1] < len(node[0]) - 1:
+                    child[-1][1] += 1
+
+            elif act == 'U':
+                if child[-1][0] > 0:
+                    child[-1][0] -= 1
+
+            elif act == 'D':
+                if child[-1][0] < len(node) - 2:
+                    child[-1][0] += 1
+
+            elif act == 'S':
+                cur_x = node[-1][0]
+                cur_y = node[-1][1]
+                if child[cur_x][cur_y]!= 0:
+                    child[cur_x][cur_y] = 0
+            
+            if child == node:
+                continue
+            
+            found = depth_limited_search(child, depth - 1, path + act)
+            
+            if found[0] is not None:
+                return found
+
+    return (None, path)
+
 #Problem23_2
-MAX_DEPTH = 7
 input = sys.stdin.read()
 text = input.splitlines()
 row = len(text)
@@ -35,109 +90,20 @@ for i in range(0,row-1):
             
 
 # Whether the state is a goal state
-count = 0
-for i in range(0, row-1):
-    for j in range(0, column):
-        if (lines[i][j] is 0):
-            count += 1
-        else:
-            break
-# Check if they are all zeros
-if count == (row-1)*column:
-    sys.exit('')
-
+if isGoal(lines):
+    print(' ')
+    sys.exit()
 
 
 #Problem23_4 depth-limit search
-frontier = [lines]
-visited = []
-path = {}
-path[id(lines)] = ''
-action = 'SDRUL'
-depth = -1
-length=len(frontier)
+path = ''
+visited = list()
 
-while len(frontier) != 0 and depth <= MAX_DEPTH:
-    if length != len(frontier)+1:
-        depth += 1
-    else:
-        depth=depth
+found = depth_limited_search(lines, 7, path)
 
-    length=len(frontier)
-    node = frontier.pop()
-    room = list(node[row-1])
-    visited.append(node)
-    
-    #check goal state
-    count = 0
-    for i in range(0, row-1):
-        for j in range(0, column):
-            if (node[i][j] is 0):
-                count += 1
-            else:
-                break
-    # Check if they are all zeros
-    if count == (row-1)*column:
-        #print 'final path'
-        print path[id(node)]
-        sys.exit()
+if found[0] is not None:
+    print(found[1])
+    sys.exit()
 
-
-    #run DFS
-    step = path[id(node)]
-
-    for act in action:
-        temp=[]
-        for item in node:
-            temp.append(list(item))
-        
-        if act == 'S':
-            temp[room[0]][room[1]]=0
-            if temp in visited:
-                continue
-            else:
-                frontier.append(temp)
-                path[id(temp)]=step+act
-                #print 'frontier'
-                #print frontier
-
-        elif act=='D':
-            temp[row-1][0]=room[0]+1
-            if temp in visited:
-                continue
-            elif temp[row-1][0]<=row-2:
-                frontier.append(temp)
-                path[id(temp)]=step+act
-                #print 'frontier'
-                #print frontier
-
-        elif act == 'R':
-            temp[row-1][1] = (room[1])+1
-            if temp in visited:
-                continue
-            elif temp[row-1][1] <= column-1:
-                frontier.append(temp)
-                path[id(temp)]=step+act
-                #print 'frontier'
-                #print frontier
-        elif act=='U':
-            temp[row-1][0]=room[0]-1
-            if temp in visited:
-                continue
-            elif temp[row-1][0]>=0:
-                frontier.append(temp)
-                path[id(temp)]=step+act
-                #print 'frontier'
-                #print frontier
-
-        elif act == 'L':
-            temp[row-1][1] = (room[1])-1
-            if temp in visited:
-                continue
-            elif temp[row-1][1] >= 0:
-                frontier.append(temp)
-                path[id(temp)]=step+act
-#print 'frontier'
-#        print frontier
 print('None')
-
+sys.exit()
