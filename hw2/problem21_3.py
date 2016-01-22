@@ -28,7 +28,7 @@ for line in fileinput.input():
 
     # determine whether the state is a goal state
     if arrangement[0] is 0 and arrangement[1] is 0:
-        print('')
+        print ''
         sys.exit()
 
 #Problem21_3
@@ -45,7 +45,7 @@ for line in fileinput.input():
 
         #find goal state
         if node[0] == 0 and node[1] == 0:
-            print(path[id(node)])
+            print path[id(node)]
             sys.exit()
         
         step = path[id(node)]
