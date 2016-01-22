@@ -15,7 +15,7 @@ input = sys.stdin.read()
 text = input.splitlines()
 row = len(text)
 column = len(text[0].split(','))
-lines=[]
+lines = []
 for j in range(0,row):
         li = [int(x.strip()) for x in text[j].split(',')]
         lines.append(li)
@@ -66,20 +66,19 @@ while len(frontier) != 0:
     for k in range(0, row-1):
         for v in range(0, column):
             if node[k][v] == 0:
-                count+=1
+                count += 1
             else:
                 break
 
     if count == (row-1)*column:
-        #print 'final path'
         print path[id(node)]
         sys.exit()
         
     #run BFS
-    step=path[id(node)]
+    step = path[id(node)]
 
     for act in action:
-        temp=[]
+        temp = []
         for item in node:
             temp.append(list(item))
         
@@ -91,11 +90,11 @@ while len(frontier) != 0:
                 frontier.append(temp)
                 path[id(temp)] = step + act
 
-        elif act=='U':
-            temp[row-1][0]=room[0]-1
+        elif act == 'U':
+            temp[row-1][0] = room[0]-1
             if temp in visited:
                 continue
-            elif temp[row-1][0]>=0:
+            elif temp[row-1][0] >= 0:
                 frontier.append(temp)
                 path[id(temp)] = step + act
 
@@ -107,17 +106,17 @@ while len(frontier) != 0:
                 frontier.append(temp)
                 path[id(temp)] = step + act
 
-        elif act=='D':
-            temp[row-1][0]=room[0]+1
+        elif act == 'D':
+            temp[row-1][0] = room[0]+1
             if temp in visited:
                 continue
-            elif temp[row-1][0]<=row-2:
+            elif temp[row-1][0] <= row-2:
                 frontier.append(temp)
                 path[id(temp)] = step + act
 
 
         elif act == 'S':
-            temp[room[0]][room[1]]=0
+            temp[room[0]][room[1]] = 0
             if temp in visited:
                 continue
             else:
