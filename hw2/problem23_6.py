@@ -65,7 +65,7 @@ class Node:
         suck = [row[:] for row in self.state]
         cur_x = self.state[-1][0]
         cur_y = self.state[-1][1]
-        if suck[cur_x][cur_y]!= 0:
+        if suck[cur_x][cur_y] != 0:
             suck[cur_x][cur_y] = 0
             step = self.path + 'S'
             insertion_order += 1
@@ -112,7 +112,7 @@ for i in range(0,row-1):
 
 # Whether the state is a goal state
 if isGoal(lines):
-    print('')
+    print ''
     sys.exit()
 
 # A* search
@@ -129,7 +129,7 @@ while not openlist.empty():
     children = q.successors()
     for child in children:
         if isGoal(child.state):
-            print(child.path)
+            print child.path
             sys.exit()
 
         for i in openlist.queue:
@@ -143,5 +143,5 @@ while not openlist.empty():
         openlist.put(child)
     closelist.append(q)
 
-print('None')
+print 'None'
 sys.exit()
