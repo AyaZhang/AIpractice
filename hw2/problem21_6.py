@@ -76,7 +76,7 @@ for line in fileinput.input():
 
     # determine whether the state is a goal state
     if arrangement[0] is 0 and arrangement[1] is 0:
-        print('')
+        print ''
         sys.exit()
 
     # A* search
@@ -92,7 +92,7 @@ for line in fileinput.input():
 
         for child in q.successors():
             if child.state[0] == 0 and child.state[1] == 0:
-                print(child.path)
+                print child.path
                 sys.exit()
 
             for i in openlist.queue:
