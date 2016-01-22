@@ -5,7 +5,7 @@ Yijun Zhang yiz160@ucsd.edu
 
 import sys
 import fileinput
-from queue import PriorityQueue
+from Queue import PriorityQueue
 
 class Node:
 
