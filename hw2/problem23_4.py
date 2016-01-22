@@ -53,22 +53,18 @@ frontier = [lines]
 visited = []
 path = {}
 path[id(lines)] = ''
-#depth[id(lines)] = -1
 action = 'SDRUL'
 depth = -1
 length=len(frontier)
-#print length
+
 while len(frontier) != 0 and depth <= MAX_DEPTH:
     if length != len(frontier)+1:
         depth += 1
     else:
-        #continue
         depth=depth
 
     length=len(frontier)
     node = frontier.pop()
-#print depth
-#    print node
     room = list(node[row-1])
     visited.append(node)
     

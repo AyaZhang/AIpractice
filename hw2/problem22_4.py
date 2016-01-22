@@ -10,7 +10,7 @@ import fileinput
 
 #Problem21_1
 for line in fileinput.input():
-
+    MAX_DEPTH = 5
     try:
         arrangement = [int(x.strip()) for x in line.split(',')]
         length=len(arrangement)
@@ -46,10 +46,16 @@ for line in fileinput.input():
     path[id(arrangement)] = ''
     action = 'SRL'
     depth = -1
-
-    while len(frontier) != 0 and depth <= 5:
+    fronLen=len(frontier)
+    
+    while len(frontier) != 0 and depth <= MAX_DEPTH:
+        if fronLen != len(frontier)+1:
+            depth += 1
+        else:
+            depth=depth
+    
+        fronLen=len(frontier)
         node = frontier.pop()
-        depth += 1
         room = node[length-1]
         visited.append(node)
         
