@@ -96,7 +96,7 @@ if isGoal(lines):
 
 path = ''
 
-for depth in range(0, 8):
+for depth in range(0, 10):
 
     found = depth_limited_search(lines, depth, path)
 
