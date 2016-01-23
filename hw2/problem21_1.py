@@ -3,7 +3,6 @@ Author:
 Yijun Zhang yiz160@ucsd.edu
 Xinyi Ma   xim002@ucsd.edu
 Yuanchi Ha yuha@ucsd.edu
-//TODO
 """
 import sys
 import fileinput
