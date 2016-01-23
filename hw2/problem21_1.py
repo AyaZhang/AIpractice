@@ -7,6 +7,14 @@ Yuanchi Ha yuha@ucsd.edu
 import sys
 import fileinput
 
+count = 0
+for line in fileinput.input():
+    count += 1
+
+# more than 1 line
+if count > 1:
+    sys.exit('invalid input')
+    
 for line in fileinput.input():
 
     try:
