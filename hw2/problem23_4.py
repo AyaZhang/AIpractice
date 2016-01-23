@@ -102,7 +102,7 @@ visited = list()
 found = depth_limited_search(lines, 7, path)
 
 if found[0] is not None:
-    print found[1]
+    #print found[1]
     sys.exit()
 
 print 'None'

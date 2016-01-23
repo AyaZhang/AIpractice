@@ -64,6 +64,14 @@ def isGoal(state):
     return True
 
 #Problem21_1
+count = 0
+for line in fileinput.input():
+    count += 1
+
+# more than 1 line
+if count > 1:
+    sys.exit('invalid input')
+    
 for line in fileinput.input():
 
     try:

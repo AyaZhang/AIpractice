@@ -101,7 +101,7 @@ for depth in range(0, 10):
     found = depth_limited_search(lines, depth, path)
 
     if found[0] is not None:
-        print(found[1])
+        #print(found[1])
         sys.exit()
 
 print 'None'

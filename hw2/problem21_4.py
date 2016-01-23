@@ -53,7 +53,14 @@ def depth_limited_search(node, depth, path):
 
     return (None, path)
 
+count = 0
+for line in fileinput.input():
+    count += 1
 
+# more than 1 line
+if count > 1:
+    sys.exit('invalid input')
+    
 for line in fileinput.input():
     try:
         arrangement = [int(x.strip()) for x in line.split(',')]
