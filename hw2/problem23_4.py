@@ -91,7 +91,7 @@ for i in range(0,row-1):
 
 # Whether the state is a goal state
 if isGoal(lines):
-    print ' '
+    print('')
     sys.exit()
 
 
@@ -102,8 +102,8 @@ visited = list()
 found = depth_limited_search(lines, 7, path)
 
 if found[0] is not None:
-    #print found[1]
+    print(found[1])
     sys.exit()
 
-print 'None'
+print('None')
 sys.exit()

@@ -7,6 +7,9 @@ Yuanchi Ha yuha@ucsd.edu
 import sys
 import fileinput
 
+""" 
+this method performs depth limited search for each iterative step
+"""
 def depth_limited_search(node, depth, path):
 
     if depth == 0 and node[0] == 0 and node[1] == 0:
@@ -30,28 +33,20 @@ def depth_limited_search(node, depth, path):
                 continue
 
             path += act
-            foundIn = depth_limited_search(child, depth - 1, path)
+            to_return = depth_limited_search(child, depth - 1, path)
             
-            if foundIn[0] is not None:
-                return foundIn
+            if to_return[0] is not None:
+                return to_return
 
     return (None, path)
 
 #Problem21_1
-count = 0
-for line in fileinput.input():
-    count += 1
-
-# more than 1 line
-if count > 1:
-    sys.exit('invalid input')
-    
 for line in fileinput.input():
 
     try:
         arrangement = [int(x.strip()) for x in line.split(',')]
 
-    except:
+    except ValueError:
         sys.exit('invalid input')
 
     # more than 3 numbers in the same line
@@ -68,11 +63,11 @@ for line in fileinput.input():
         print ''
         sys.exit()
 
-    path = ''
+    solution = ''
 
-    for depth in range(0, 8):
+    for current_depth in range(0, 8):
 
-        found = depth_limited_search(arrangement, depth, path)
+        found = depth_limited_search(arrangement, current_depth, solution)
 
         if found[0] is not None:
             print found[1]

@@ -93,7 +93,7 @@ string2 = 'really really really bad bad bad'
 ans2 = compute_most_frequent_word(string2)
 print "test 2\nyour answer:\t", ans2, "\ncorrect answer:\t (set(['bad', 'really']), 3)"
 """
-string3 = 'space space'
+string3 = 'hello goodbye hello goodbye'
 ans3 = compute_most_frequent_word(string3)
 print("test 3\nyour answer:\t", ans3, "\ncorrect answer:\t (set([' ', 'space']), 2)")
 

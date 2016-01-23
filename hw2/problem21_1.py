@@ -7,20 +7,12 @@ Yuanchi Ha yuha@ucsd.edu
 import sys
 import fileinput
 
-count = 0
-for line in fileinput.input():
-    count += 1
-
-# more than 1 line
-if count > 1:
-    sys.exit('invalid input')
-    
 for line in fileinput.input():
 
     try:
         arrangement = [int(x.strip()) for x in line.split(',')]
 
-    except:
+    except ValueError:
         sys.exit('invalid input')
 
     # more than 3 numbers in the same line

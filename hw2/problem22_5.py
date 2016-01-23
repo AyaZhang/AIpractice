@@ -8,7 +8,7 @@ Yuanchi Ha yuha@ucsd.edu
 import sys
 import fileinput
 
-def isGoal(state):
+def is_goal(state):
     for i in state[:-1]:
         if i != 0:
             return False
@@ -17,91 +17,72 @@ def isGoal(state):
 def depth_limited_search(node, depth, path):
     
 
-    if depth == 0 and isGoal(node):
+    if depth == 0 and is_goal(node):
         return (node, path)
 
     action = 'LRS'
 
     if depth > 0:
         for act in action:
-            if act=='S':
-                child=list(node)
-                if child[child[length-1]]==0:
+            if act == 'S':
+                child = list(node)
+                if child[child[length-1]] == 0:
                     continue
                 else:
                     child[child[length-1]] = 0
             
-            elif act=='R':
+            elif act == 'R':
                 child = list(node)
-                if child[length-1] < length-2:
+                if child[length-1] < length - 2:
                     child[-1] += 1
                 else:
                     continue
             
-            elif act=='L':
+            elif act == 'L':
                 child = list(node)
                 if child[length-1] > 0:
                     child[-1] -= 1
                 else:
                     continue
             
-            #if child == list(node):
-            #   continue
+            to_return = depth_limited_search(child, depth - 1, path + act)
             
-
-            #print(child,path)
-            foundIn = depth_limited_search(child, depth - 1, path+act)
-            
-            if foundIn[0] is not None:
-                return foundIn
+            if to_return[0] is not None:
+                return to_return
 
     return (None, path)
 
 #Problem22_1
-count = 0
-for line in fileinput.input():
-    count += 1
-
-# more than 1 line
-if count > 1:
-    sys.exit('invalid input')
-    
 for line in fileinput.input():
 
     try:
         arrangement = [int(x.strip()) for x in line.split(',')]
-        length=len(arrangement)
+        length = len(arrangement)
 
-    except:
+    except ValueError:
         sys.exit('invalid input')
 
 
-    for k in range(0, length-1):
+    for k in range(0, length - 1):
         if arrangement[k] not in [0, 1]:
             sys.exit('invalid input')
-    if arrangement[length-1]>=length-1:
+    if arrangement[length - 1] >= length - 1:
         sys.exit('invalid input')
     
     # determine whether the state is a goal state
-    count=0
-    for k in range(0, length-1):
-        #print arrangement[k]
-        if arrangement[k] is 0:
-            count+=1
-        else:
-            break
-    if count==length-1:
-        sys.exit('')
+    if is_goal(arrangement):
+        print ''
+        sys.exit()
 
-    path = ''
+    solution = ''
 
-    for depth in range(0, 8):
+    for limit in range(0, 8):
 
-        found = depth_limited_search(arrangement, depth, path)
+        found = depth_limited_search(arrangement, limit, solution)
 
         if found[0] is not None:
-            print(found[1])
+            print found[1]
             sys.exit()
 
-    print('None')
+    print 'None'
     sys.exit()

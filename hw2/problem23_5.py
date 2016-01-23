@@ -15,7 +15,6 @@ def isGoal(state):
                 return False
     return True
 
-
 def depth_limited_search(node, depth, path):
 
     if depth == 0 and isGoal(node):
@@ -90,7 +89,7 @@ for i in range(0,row-1):
 
 # Whether the state is a goal state
 if isGoal(lines):
-    print ''
+    print('')
     sys.exit()
 
 
@@ -101,8 +100,8 @@ for depth in range(0, 10):
     found = depth_limited_search(lines, depth, path)
 
     if found[0] is not None:
-        #print(found[1])
+        print(found[1])
         sys.exit()
 
-print 'None'
+print('None')
 sys.exit()

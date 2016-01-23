@@ -8,18 +8,23 @@ Yuanchi Ha yuha@ucsd.edu
 import sys
 import fileinput
 
-def isGoal(state):
+""" 
+this method checks whether the algorithm has reached goal state 
+"""
+def is_goal(state):
     for i in state[:-1]:
         if i != 0:
             return False
     return True
 
+""" 
+this method performs depth limited search from a given start state
+"""
 def depth_limited_search(node, depth, path):
-
     if node in visited:
         return (None, path)
 
-    if isGoal(node):
+    if is_goal(node):
         return (node, path)
 
     visited.append(node)
@@ -40,32 +45,24 @@ def depth_limited_search(node, depth, path):
                     child[2] = 1
 
             elif act == 'S':
-                if child[child[2]]!= 0:
+                if child[child[2]] != 0:
                     child[child[2]] = 0
             
             if child == node:
                 continue
             
-            foundIn = depth_limited_search(child, depth - 1, path + act)
+            to_return = depth_limited_search(child, depth - 1, path + act)
             
-            if foundIn[0] is not None:
-                return foundIn
+            if to_return[0] is not None:
+                return to_return
 
     return (None, path)
 
-count = 0
-for line in fileinput.input():
-    count += 1
-
-# more than 1 line
-if count > 1:
-    sys.exit('invalid input')
-    
 for line in fileinput.input():
     try:
         arrangement = [int(x.strip()) for x in line.split(',')]
 
-    except:
+    except ValueError:
         sys.exit('invalid input')
 
     # more than 3 numbers in the same line
@@ -78,14 +75,14 @@ for line in fileinput.input():
             sys.exit('invalid input')
     
     # determine whether the state is a goal state
-    if isGoal(arrangement):
+    if is_goal(arrangement):
         print ''
         sys.exit()
 
-    path = ''
+    solution = ''
     visited = list()
 
-    found = depth_limited_search(arrangement, 5, path)
+    found = depth_limited_search(arrangement, 5, solution)
 
     if found[0] is not None:
         print found[1]

@@ -3,31 +3,18 @@ Author:
 Yijun Zhang yiz160@ucsd.edu
 Xinyi Ma   xim002@ucsd.edu
 Yuanchi Ha yuha@ucsd.edu
-//TODO
 """
 import sys
 import fileinput
 
-count = 0
-for line in fileinput.input():
-    count += 1
-
-# more than 1 line
-if count > 1:
-    sys.exit('invalid input')
-    
 for line in fileinput.input():
 
     try:
         arrangement = [int(x.strip()) for x in line.split(',')]
         length = len(arrangement)
 
-    except:
+    except ValueError:
         sys.exit('invalid input')
-
-    # more than 3 numbers in the same line
-    #if len(arrangement) > lengh:
-    #    sys.exit('invalid input')
 
     # initial state not valid
     for k in range(0, length-1):
@@ -41,7 +28,8 @@ for line in fileinput.input():
         if arrangement[k] is 0:
             continue
         else:
-            sys.exit('False')
-    print('True')
+            print 'False'
+            sys.exit()
+    print 'True'
 
     sys.exit()

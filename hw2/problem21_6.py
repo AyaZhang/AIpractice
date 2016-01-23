@@ -9,6 +9,11 @@ import sys
 import fileinput
 from Queue import PriorityQueue
 
+insertion_order = 0
+
+""" 
+each node represents a state in A* search 
+"""
 class Node:
 
     def __init__(self, state, cost, path, order):
@@ -26,8 +31,11 @@ class Node:
         else:
             return self.order < other.order
 
+    """ 
+    generates a list of all the successors of the current node 
+    """
     def successors(self):
-        toRet = []
+        to_return = []
         global insertion_order 
 
         left = list(self.state)
@@ -36,7 +44,7 @@ class Node:
             step = self.path + 'L'
             insertion_order += 1
             left_successor = Node(left, self.cost + 1, step, insertion_order)
-            toRet.append(left_successor)
+            to_return.append(left_successor)
 
         right = list(self.state)
         if right[-1] < len(right) - 2:
@@ -44,33 +52,25 @@ class Node:
             step = self.path + 'R'
             insertion_order += 1
             right_successor = Node(right, self.cost + 1, step, insertion_order)
-            toRet.append(right_successor)
+            to_return.append(right_successor)
 
         suck = list(self.state)
-        if suck[suck[len(suck) - 1]]!= 0:
+        if suck[suck[len(suck) - 1]] != 0:
             suck[suck[len(suck) - 1]] = 0
             step = self.path + 'S'
             insertion_order += 1
             suck_successor = Node(suck, self.cost + 1, step, insertion_order)
-            toRet.append(suck_successor)
+            to_return.append(suck_successor)
 
-        return toRet
+        return to_return
 
 #Problem21_1
-count = 0
-for line in fileinput.input():
-    count += 1
-
-# more than 1 line
-if count > 1:
-    sys.exit('invalid input')
-    
 for line in fileinput.input():
 
     try:
         arrangement = [int(x.strip()) for x in line.split(',')]
 
-    except:
+    except ValueError:
         sys.exit('invalid input')
 
     # more than 3 numbers in the same line
@@ -90,7 +90,6 @@ for line in fileinput.input():
     # A* search
     openlist = PriorityQueue()
     closelist = []
-    insertion_order = 0
 
     start = Node(arrangement, 0, '', 0)
     openlist.put(start)
@@ -115,5 +114,5 @@ for line in fileinput.input():
 
         closelist.append(q)
 
-    print('None')
+    print 'None'
     sys.exit()
