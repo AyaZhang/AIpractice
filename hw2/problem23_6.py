@@ -129,7 +129,7 @@ while not openlist.empty():
     children = q.successors()
     for child in children:
         if isGoal(child.state):
-            print child.path
+            #print child.path
             sys.exit()
 
         for i in openlist.queue:
