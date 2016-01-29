@@ -71,7 +71,7 @@ while len(frontier) != 0:
                 break
 
     if count == (row-1)*column:
-        print path[id(node)]
+        print(path[id(node)])
         sys.exit()
         
     #run BFS

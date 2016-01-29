@@ -8,7 +8,7 @@ Yuanchi Ha yuha@ucsd.edu
 import sys
 import fileinput
 
-def isGoal(state):
+def is_goal(state):
     for i in state[:-1]:
         if i != 0:
             return False
@@ -19,7 +19,7 @@ def depth_limited_search(node, depth, path):
     if node in visited:
         return (None, path)
 
-    if isGoal(node):
+    if is_goal(node):
         return (node, path)
 
     visited.append(node)
@@ -46,20 +46,20 @@ def depth_limited_search(node, depth, path):
             if child == node:
                 continue
             
-            found = depth_limited_search(child, depth - 1, path + act)
+            to_return = depth_limited_search(child, depth - 1, path + act)
             
-            if found[0] is not None:
-                return found
+            if to_return[0] is not None:
+                return to_return
 
     return (None, path)
-
-
+    
+    
 for line in fileinput.input():
     try:
         arrangement = [int(x.strip()) for x in line.split(',')]
         length = len(arrangement)
 
-    except:
+    except ValueError:
         sys.exit('invalid input')
 
     # initial state not valid
@@ -70,18 +70,18 @@ for line in fileinput.input():
         sys.exit('invalid input')
     
     # determine whether the state is a goal state
-    if isGoal(arrangement):
-        print('')
+    if is_goal(arrangement):
+        print ''
         sys.exit()
 
-    path = ''
+    solution = ''
     visited = list()
 
-    found = depth_limited_search(arrangement, 5, path)
+    found = depth_limited_search(arrangement, 5, solution)
 
     if found[0] is not None:
-        print(found[1])
+        print found[1]
         sys.exit()
 
-    print('None')
+    print 'None'
     sys.exit()

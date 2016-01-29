@@ -8,6 +8,7 @@ Yuanchi Ha yuha@ucsd.edu
 import sys
 import fileinput
 from collections import deque
+
 #Problem21_1
 for line in fileinput.input():
 
@@ -15,18 +16,14 @@ for line in fileinput.input():
         arrangement = [int(x.strip()) for x in line.split(',')]
         length = len(arrangement)
 
-    except:
+    except ValueError:
         sys.exit('invalid input')
-
-    # more than 3 numbers in the same line
-    #if len(arrangement) > 3:
-    #    sys.exit('invalid input')
 
     # initial state not valid
     for k in range(0, length-1):
         if arrangement[k] not in [0, 1]:
             sys.exit('invalid input')
-    if arrangement[length-1] >= length-1:
+    if arrangement[length-1] >= length - 1:
         sys.exit('invalid input')
 
     # determine whether the state is a goal state
@@ -37,7 +34,8 @@ for line in fileinput.input():
         else:
             break
     if count == length-1:
-        sys.exit('')
+        print ''
+        sys.exit()
 
 #Problem21_2  BFS
     frontier = deque([arrangement])
@@ -93,13 +91,3 @@ for line in fileinput.input():
                     frontier.append(temp)
                     path[id(temp)] = step+act
     sys.exit()
-
-
-
-
-
-
-
-
-
-

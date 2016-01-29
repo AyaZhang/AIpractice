@@ -9,13 +9,12 @@ import sys
 import fileinput
 from collections import deque
 
-# Problem21_1 Checking for valid input
 for line in fileinput.input():
 
     try:
         arrangement = [int(x.strip()) for x in line.split(',')]
 
-    except:
+    except ValueError:
         sys.exit('invalid input')
 
     # more than 3 numbers in the same line

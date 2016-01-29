@@ -15,12 +15,8 @@ for line in fileinput.input():
         arrangement = [int(x.strip()) for x in line.split(',')]
         length = len(arrangement)
 
-    except:
+    except ValueError:
         sys.exit('invalid input')
-
-    # more than 3 numbers in the same line
-    #if len(arrangement) > 3:
-    #    sys.exit('invalid input')
 
     # initial state not valid
     for k in range(0, length-1):
@@ -30,14 +26,15 @@ for line in fileinput.input():
         sys.exit('invalid input')
 
     # determine whether the state is a goal state
-    count=0
+    count = 0
     for k in range(0, length-1):
         if arrangement[k] is 0:
             count += 1
         else:
             break
     if count == length-1:
-        sys.exit('')
+        print ''
+        sys.exit()
 
 #Problem21_3  DFS
     frontier = [arrangement]
@@ -92,5 +89,4 @@ for line in fileinput.input():
                 elif temp[length-1] >= 0:
                     frontier.append(temp)
                     path[id(temp)] = step+act
-    sys.exit('')
-
+    sys.exit()
