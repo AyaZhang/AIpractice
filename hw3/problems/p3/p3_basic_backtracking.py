@@ -40,7 +40,6 @@ def backtracking_search(csp):
     For P3, *you do not need to modify this method.*
     """
     if backtrack(csp):
-        #print 'here' #added
         return csp.assignment
     else:
         return None
@@ -57,20 +56,21 @@ def backtrack(csp):
         
 def recursive_backtracking(csp):
     if is_complete(csp):
-        print 'successful'
         return True
 
     var = select_unassigned_variable(csp)
     for value in order_domain_values(csp, var):
-        csp.variables.begin_transaction()
+        
         if is_consistent(csp,var,value):
+            csp.variables.begin_transaction()
             var.assign(value)
             result = recursive_backtracking(csp)
             if result:
                 return result
-            #csp.assignment.remove(var)
+            var.domain = []
+            for i in range(4):
+                var.domain.append(i+1)
             csp.variables.rollback()
-        else:
-            return False
+
     return False
 
