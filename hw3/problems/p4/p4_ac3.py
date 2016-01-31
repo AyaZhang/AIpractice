@@ -17,9 +17,30 @@ def ac3(csp, arcs=None):
     This method returns True if the arc consistency check succeeds, and False otherwise."""
 
     queue_arcs = deque(arcs if arcs is not None else csp.constraints.arcs())
+    print queue_arcs
+    for item in queue_arcs:
+        print item
+        print type(item)
+        print item[1]
 
     # TODO implement this
-    pass
+    while queue_arcs is not empty:
+        [xi, xj] = queue_arcs.popleft()  #pop()?
+        if remove-inconsistent-values(xi,xj):
+            for xk in neighbors[xi]:  #neighbors?
+                queue_arcs.add(tuple(xk,xi))
+
+def remove_inconsistent-values(xi, xj)
+    removed = False
+    dom = xi.domain
+    for x in xi.domain:
+        xi.assign(x)
+        while y in xj.domain:
+            xj.assign[j]
+            if !csp.constraints[xi,xj]:
+                xi.domain = [value in dom if value is not x]   #delete x from domain[xi]
+                removed = True
+    return removed
 
 def revise(csp, xi, xj):
     # You may additionally want to implement the 'revise' method.
