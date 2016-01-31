@@ -20,4 +20,3 @@ def is_complete(csp):
 
     return True
 
-    pass

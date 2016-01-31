@@ -13,14 +13,15 @@ def is_consistent(csp, variable, value):
 
 
     # TODO implement this
-    print csp.constraints
-    print 'variable\t', variable
-    print 'value\t', value, '\n'
+    #print csp.constraints
+    #print csp.assignment, '\n'
+    #print 'variable\t', variable
+    #print 'value\t', value, '\n'
     for constraint in csp.constraints[variable]:
-        print '\t',constraint
-        print '\t', constraint.var1
-        print '\t', constraint.var2
-        print '\t', constraint.relation
+        #print '\t',constraint
+        #print '\t', constraint.var1
+        #print '\t', constraint.var2
+        #print '\t', constraint.relation
         if constraint.var2.is_assigned():
             if not constraint.is_satisfied(value,constraint.var2.value):
                 return False
