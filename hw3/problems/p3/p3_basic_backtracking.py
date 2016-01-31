@@ -59,6 +59,7 @@ def recursive_backtracking(csp):
         return True
 
     var = select_unassigned_variable(csp)
+    dom = var.domain
     for value in order_domain_values(csp, var):
         
         if is_consistent(csp,var,value):
@@ -68,8 +69,8 @@ def recursive_backtracking(csp):
             if result:
                 return result
             var.domain = []
-            for i in range(4):
-                var.domain.append(i+1)
+            for i in dom:
+                var.domain.append(i)
             csp.variables.rollback()
 
     return False
