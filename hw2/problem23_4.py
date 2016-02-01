@@ -9,6 +9,9 @@ import sys
 import fileinput
 from collections import deque
 
+path = ''
+visited = list()
+
 def isGoal(state):
     for i in state[:-1]:
         for j in i:
@@ -65,45 +68,39 @@ def depth_limited_search(node, depth, path):
 
     return (None, path)
 
-#Problem23_2
-input = sys.stdin.read()
-text = input.splitlines()
-row = len(text)
-column = len(text[0].split(','))
-lines = []
-for j in range(0,row):
-    li = [int(x.strip()) for x in text[j].split(',')]
-    lines.append(li)
+def problem23_4():
+    input = sys.stdin.read()
+    text = input.splitlines()
+    row = len(text)
+    column = len(text[0].split(','))
+    lines = []
+    for j in range(0,row):
+        li = [int(x.strip()) for x in text[j].split(',')]
+        lines.append(li)
 
-#vacumm location not valid
-if len(lines[row-1]) == 2:
-    if (int(lines[row-1][0]) not in range(0,row-1)) or (int(lines[row-1][1]) not in range(0,column)):
-        sys.exit('invalid input: last line')
-else:
-    sys.exit('invalid input: last line')
+    #vacumm location not valid
+    if len(lines[row-1]) == 2:
+        if (int(lines[row-1][0]) not in range(0,row-1)) or (int(lines[row-1][1]) not in range(0,column)):
+            return 'invalid input: last line'
+    else:
+        return 'invalid input: last line'
 
-for i in range(0,row-1):
-    # Initial state not valid
-    for k in range(0, column):
-        if lines[i][k] not in [0,1]:
-            sys.exit('invalid input')
-            
+    for i in range(0,row-1):
+        # Initial state not valid
+        for k in range(0, column):
+            if lines[i][k] not in [0,1]:
+                return 'invalid input'
+                
 
-# Whether the state is a goal state
-if isGoal(lines):
-    print('')
-    sys.exit()
+    # Whether the state is a goal state
+    if isGoal(lines):
+        return ''
 
+    found = depth_limited_search(lines, 7, path)
 
-#Problem23_4 depth-limit search
-path = ''
-visited = list()
+    if found[0] is not None:
+        return found[1]
 
-found = depth_limited_search(lines, 7, path)
+    return 'None'
 
-if found[0] is not None:
-    print(found[1])
-    sys.exit()
-
-print('None')
-sys.exit()
+print(problem23_4())

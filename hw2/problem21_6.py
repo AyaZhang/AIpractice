@@ -7,7 +7,7 @@ Yuanchi Ha yuha@ucsd.edu
 
 import sys
 import fileinput
-from Queue import PriorityQueue
+from queue import PriorityQueue
 
 insertion_order = 0
 
@@ -64,55 +64,54 @@ class Node:
 
         return to_return
 
-#Problem21_1
-for line in fileinput.input():
+def problem21_6():
+    for line in fileinput.input():
 
-    try:
-        arrangement = [int(x.strip()) for x in line.split(',')]
+        try:
+            arrangement = [int(x.strip()) for x in line.split(',')]
 
-    except ValueError:
-        sys.exit('invalid input')
+        except ValueError:
+            return 'invalid input'
 
-    # more than 3 numbers in the same line
-    if len(arrangement) > 3:
-        sys.exit('invalid input')
+        # more than 3 numbers in the same line
+        if len(arrangement) > 3:
+            return 'invalid input'
 
-    # initial state not valid
-    for k in range(0, 3):
-        if arrangement[k] not in [0, 1]:
-            sys.exit('invalid input')
+        # initial state not valid
+        for k in range(0, 3):
+            if arrangement[k] not in [0, 1]:
+                return 'invalid input'
 
-    # determine whether the state is a goal state
-    if arrangement[0] is 0 and arrangement[1] is 0:
-        print ''
-        sys.exit()
+        # determine whether the state is a goal state
+        if arrangement[0] is 0 and arrangement[1] is 0:
+            return ''
 
-    # A* search
-    openlist = PriorityQueue()
-    closelist = []
+        # A* search
+        openlist = PriorityQueue()
+        closelist = []
 
-    start = Node(arrangement, 0, '', 0)
-    openlist.put(start)
+        start = Node(arrangement, 0, '', 0)
+        openlist.put(start)
 
-    while not openlist.empty():
-        q = openlist.get()
+        while not openlist.empty(): 
+            q = openlist.get()
 
-        for child in q.successors():
-            if child.state[0] == 0 and child.state[1] == 0:
-                print child.path
-                sys.exit()
+            for child in q.successors():
+                if child.state[0] == 0 and child.state[1] == 0:
+                    return child.path
 
-            for i in openlist.queue:
-                if i < child:
-                    continue
+                for i in openlist.queue:
+                    if i < child:
+                        continue
 
-            for j in closelist:
-                if j < child:
-                    continue
+                for j in closelist:
+                    if j < child:
+                        continue
             
-            openlist.put(child)
+                openlist.put(child)
 
-        closelist.append(q)
+            closelist.append(q)
 
-    print 'None'
-    sys.exit()
+        return 'None'
+
+print(problem21_6())

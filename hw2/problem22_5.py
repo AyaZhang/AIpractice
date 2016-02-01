@@ -8,13 +8,15 @@ Yuanchi Ha yuha@ucsd.edu
 import sys
 import fileinput
 
+solution = ''
+
 def is_goal(state):
     for i in state[:-1]:
         if i != 0:
             return False
     return True
 
-def depth_limited_search(node, depth, path):
+def depth_limited_search(node, depth, path, length):
     
 
     if depth == 0 and is_goal(node):
@@ -45,44 +47,41 @@ def depth_limited_search(node, depth, path):
                 else:
                     continue
             
-            to_return = depth_limited_search(child, depth - 1, path + act)
+            to_return = depth_limited_search(child, depth - 1, path + act, length)
             
             if to_return[0] is not None:
                 return to_return
 
     return (None, path)
 
-#Problem22_1
-for line in fileinput.input():
+def problem22_5():
+    for line in fileinput.input():
 
-    try:
-        arrangement = [int(x.strip()) for x in line.split(',')]
-        length = len(arrangement)
+        try:
+            arrangement = [int(x.strip()) for x in line.split(',')]
+            length = len(arrangement)
 
-    except ValueError:
-        sys.exit('invalid input')
+        except ValueError:
+            return 'invalid input'
 
 
-    for k in range(0, length - 1):
-        if arrangement[k] not in [0, 1]:
-            sys.exit('invalid input')
-    if arrangement[length - 1] >= length - 1:
-        sys.exit('invalid input')
-    
-    # determine whether the state is a goal state
-    if is_goal(arrangement):
-        print ''
-        sys.exit()
+        for k in range(0, length - 1):
+            if arrangement[k] not in [0, 1]:
+                return 'invalid input'
+        if arrangement[length - 1] >= length - 1:
+            return 'invalid input'
+        
+        # determine whether the state is a goal state
+        if is_goal(arrangement):
+            return ''
 
-    solution = ''
+        for limit in range(0, 8):
 
-    for limit in range(0, 8):
+            found = depth_limited_search(arrangement, limit, solution, length)
 
-        found = depth_limited_search(arrangement, limit, solution)
+            if found[0] is not None:
+                return found[1]
 
-        if found[0] is not None:
-            print found[1]
-            sys.exit()
+        return 'None'
 
-    print 'None'
-    sys.exit()
+print(problem22_5())

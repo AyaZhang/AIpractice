@@ -9,59 +9,61 @@ import sys
 import fileinput
 from collections import deque
 
-for line in fileinput.input():
 
-    try:
-        arrangement = [int(x.strip()) for x in line.split(',')]
+def problem21_2():
+    for line in fileinput.input():
 
-    except ValueError:
-        sys.exit('invalid input')
+        try:
+            arrangement = [int(x.strip()) for x in line.split(',')]
 
-    # more than 3 numbers in the same line
-    if len(arrangement) > 3:
-        sys.exit('invalid input')
+        except ValueError:
+            return 'invalid input'
 
-    # initial state not valid
-    for k in range(0, 3):
-        if arrangement[k] not in [0, 1]:
-            sys.exit('invalid input')
+        # more than 3 numbers in the same line
+        if len(arrangement) > 3:
+            return 'invalid input'
 
-    # determine whether the state is a goal state
-    if arrangement[0] is 0 and arrangement[1] is 0:
-        print ''
-        sys.exit()
+        # initial state not valid
+        for k in range(0, 3):
+            if arrangement[k] not in [0, 1]:
+                return 'invalid input'
 
-# Problem21_2  BFS
-    frontier = deque([arrangement])
-    visited = []
-    path = {}
-    path[id(arrangement)] = ''
-    action = 'LRS'
+        # determine whether the state is a goal state
+        if arrangement[0] is 0 and arrangement[1] is 0:
+            return ''  
 
-    while len(frontier) != 0:
-        node = frontier.popleft()
-        room = node[2]
+        # Problem21_2  BFS
+        frontier = deque([arrangement])
+        visited = []
+        path = {}
+        path[id(arrangement)] = ''
+        action = 'LRS'
 
-        #find goal state
-        if node[0] == 0 and node[1] == 0:
-            print path[id(node)]
-            sys.exit()
+        while len(frontier) != 0:
+            node = frontier.popleft()
+            room = node[2]
+
+            #find goal state
+            if node[0] == 0 and node[1] == 0:
+                return path[id(node)]
         
-        step = path[id(node)]
+            step = path[id(node)]
 
-        for act in action:
-            if act == 'S':
-                temp = list(node)
-                temp[room] = 0
-            elif act == 'R':
-                temp = list(node)
-                temp[2] = 1
-            elif act == 'L':
-                temp = list(node)
-                temp[2] = 0
+            for act in action:
+                if act == 'S':
+                    temp = list(node)
+                    temp[room] = 0
+                elif act == 'R':
+                    temp = list(node)
+                    temp[2] = 1
+                elif act == 'L':
+                    temp = list(node)
+                    temp[2] = 0
 
-            if temp in visited:
-                continue
-            else:
-                frontier.append(temp)
-                path[id(temp)] = step + act
+                if temp in visited:
+                    continue
+                else:
+                    frontier.append(temp)
+                    path[id(temp)] = step + act
+
+print(problem21_2())

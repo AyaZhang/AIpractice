@@ -59,49 +59,47 @@ def depth_limited_search(node, depth, path):
 
     return (None, path)
 
+def problem23_5():
+    input = sys.stdin.read()
+    text = input.splitlines()
+    row = len(text)
+    if text:
+        column = len(text[0].split(','))
+    else:
+        return 'invalid input'
+    lines = []
 
-input = sys.stdin.read()
-text = input.splitlines()
-row = len(text)
-if text:
-    column = len(text[0].split(','))
-else:
-    sys.exit('invalid input')
-lines = []
+    for j in range(0,row):
+        li = [int(x.strip()) for x in text[j].split(',')]
+        lines.append(li)
 
-for j in range(0,row):
-    li = [int(x.strip()) for x in text[j].split(',')]
-    lines.append(li)
+    #vacumm location not valid
+    if len(lines[row-1]) == 2:
+        if (int(lines[row-1][0]) not in range(0,row-1)) or (int(lines[row-1][1]) not in range(0,column)):
+            return 'invalid input: last line'
+    else:
+        return 'invalid input: last line'
 
-#vacumm location not valid
-if len(lines[row-1]) == 2:
-    if (int(lines[row-1][0]) not in range(0,row-1)) or (int(lines[row-1][1]) not in range(0,column)):
-        sys.exit('invalid input: last line')
-else:
-    sys.exit('invalid input: last line')
+    # Initial state not valid
+    for i in range(0,row-1):
+        for k in range(0, column):
+            if lines[i][k] not in [0,1]:
+                return 'invalid input'
+                
 
-# Initial state not valid
-for i in range(0,row-1):
-    for k in range(0, column):
-        if lines[i][k] not in [0,1]:
-            sys.exit('invalid input')
-            
+    # Whether the state is a goal state
+    if isGoal(lines):
+        return ''
 
-# Whether the state is a goal state
-if isGoal(lines):
-    print('')
-    sys.exit()
+    path = ''
 
+    for depth in range(0, 10):
 
-path = ''
+        found = depth_limited_search(lines, depth, path)
 
-for depth in range(0, 10):
+        if found[0] is not None:
+            return found[1]
 
-    found = depth_limited_search(lines, depth, path)
+    return('None')
 
-    if found[0] is not None:
-        print(found[1])
-        sys.exit()
-
-print('None')
-sys.exit()
+print(problem23_5())

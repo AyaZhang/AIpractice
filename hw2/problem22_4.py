@@ -8,6 +8,9 @@ Yuanchi Ha yuha@ucsd.edu
 import sys
 import fileinput
 
+solution = ''
+visited = list()
+
 def is_goal(state):
     for i in state[:-1]:
         if i != 0:
@@ -53,35 +56,32 @@ def depth_limited_search(node, depth, path):
 
     return (None, path)
     
-    
-for line in fileinput.input():
-    try:
-        arrangement = [int(x.strip()) for x in line.split(',')]
-        length = len(arrangement)
+def problem22_4():
+    for line in fileinput.input():
+        try:
+            arrangement = [int(x.strip()) for x in line.split(',')]
+            length = len(arrangement)
 
-    except ValueError:
-        sys.exit('invalid input')
+        except ValueError:
+            return 'invalid input'
 
-    # initial state not valid
-    for k in range(0, length-1):
-        if arrangement[k] not in [0, 1]:
-            sys.exit('invalid input')
-    if arrangement[length-1] >= length-1:
-        sys.exit('invalid input')
-    
-    # determine whether the state is a goal state
-    if is_goal(arrangement):
-        print ''
-        sys.exit()
+        # initial state not valid
+        for k in range(0, length-1):
+            if arrangement[k] not in [0, 1]:
+                return 'invalid input'
+                
+        if arrangement[length-1] >= length-1:
+            return 'invalid input'
+        
+        # determine whether the state is a goal state
+        if is_goal(arrangement):
+            return ''
 
-    solution = ''
-    visited = list()
+        found = depth_limited_search(arrangement, 5, solution)
 
-    found = depth_limited_search(arrangement, 5, solution)
+        if found[0] is not None:
+            return found[1]
 
-    if found[0] is not None:
-        print found[1]
-        sys.exit()
+        return 'None'
 
-    print 'None'
-    sys.exit()
+print(problem22_4())

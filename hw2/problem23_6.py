@@ -9,6 +9,10 @@ import sys
 import fileinput
 from queue import PriorityQueue
 
+openlist = PriorityQueue()
+closelist = []
+insertion_order = 0
+
 class Node:
 
     def __init__(self, state, cost, path, order):
@@ -82,66 +86,59 @@ def isGoal(state):
                 return False
     return True
 
+def problem23_6():
+    input = sys.stdin.read()
+    text = input.splitlines()
+    row = len(text)
+    if text:
+        column = len(text[0].split(','))
+    else:
+        return 'invalid input'
+    lines = []
 
-input = sys.stdin.read()
-text = input.splitlines()
-row = len(text)
-if text:
-    column = len(text[0].split(','))
-else:
-    sys.exit('invalid input')
-lines = []
+    for j in range(0,row):
+        li = [int(x.strip()) for x in text[j].split(',')]
+        lines.append(li)
 
-for j in range(0,row):
-    li = [int(x.strip()) for x in text[j].split(',')]
-    lines.append(li)
+    #vacumm location not valid
+    if len(lines[row-1]) == 2:
+        if (int(lines[row-1][0]) not in range(0,row-1)) or (int(lines[row-1][1]) not in range(0,column)):
+            return 'invalid input: last line'
+    else:
+        return 'invalid input: last line'
 
-#vacumm location not valid
-if len(lines[row-1]) == 2:
-    if (int(lines[row-1][0]) not in range(0,row-1)) or (int(lines[row-1][1]) not in range(0,column)):
-        sys.exit('invalid input: last line')
-else:
-    sys.exit('invalid input: last line')
+    # Initial state not valid
+    for i in range(0,row-1):
+        for k in range(0, column):
+            if lines[i][k] not in [0,1]:
+                return 'invalid input'
 
-# Initial state not valid
-for i in range(0,row-1):
-    for k in range(0, column):
-        if lines[i][k] not in [0,1]:
-            sys.exit('invalid input')
-            
+    # Whether the state is a goal state
+    if isGoal(lines):
+        return ''
 
-# Whether the state is a goal state
-if isGoal(lines):
-    print('')
-    sys.exit()
+    start = Node(lines, 0, '', insertion_order)
+    openlist.put(start)
 
-# A* search
-openlist = PriorityQueue()
-closelist = []
-insertion_order = 0
+    while not openlist.empty():
+        q = openlist.get()
 
-start = Node(lines, 0, '', insertion_order)
-openlist.put(start)
+        children = q.successors()
+        for child in children:
+            if isGoal(child.state):
+                return child.path
 
-while not openlist.empty():
-    q = openlist.get()
+            for i in openlist.queue:
+                if i < child:
+                    continue
 
-    children = q.successors()
-    for child in children:
-        if isGoal(child.state):
-            print(child.path)
-            sys.exit()
+            for j in closelist:
+                if j < child:
+                    continue
+                
+            openlist.put(child)
+        closelist.append(q)
 
-        for i in openlist.queue:
-            if i < child:
-                continue
+    return 'None'
 
-        for j in closelist:
-            if j < child:
-                continue
-            
-        openlist.put(child)
-    closelist.append(q)
-
-print('None')
-sys.exit()
+print(problem23_6())
