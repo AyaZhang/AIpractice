@@ -23,10 +23,14 @@ class Node:
         self.order = order
 
     def __lt__(self, other):
-        myf = self.cost + self.heuristic
-        otherf = other.cost + other.heuristic
-        if myf != otherf:
-            return myf < otherf
+        #myf = self.cost + self.heuristic
+        #otherf = other.cost + other.heuristic
+        #if myf != otherf:
+        #    return myf < otherf
+        if self.heuristic != other.heuristic:
+            return self.heuristic < other.heuristic
+        elif self.cost != other.cost:
+            return self.cost < other.cost
         else:
             return self.order < other.order
 
@@ -80,11 +84,11 @@ class Node:
 
 
 def isGoal(state):
-    for i in state[:-1]:
-        for j in i:
-            if j != 0:
-                return False
-    return True
+    total = sum([sum(x) for x in state[:-1]])
+    if (total == 0):
+        return True
+    else:
+        return False
 
 def problem23_6():
     input = sys.stdin.read()
