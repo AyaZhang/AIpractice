@@ -68,9 +68,9 @@ def recursive_backtracking(csp):
             result = recursive_backtracking(csp)
             if result:
                 return result
-            var.domain = []
-            for i in dom:
-                var.domain.append(i)
+            #var.domain = []
+            #for i in dom:
+            #    var.domain.append(i)
             csp.variables.rollback()
 
     return False
