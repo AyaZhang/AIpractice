@@ -16,7 +16,7 @@ def ac3(csp, arcs=None):#implement backtracking here?
 
     This method returns True if the arc consistency check succeeds, and False otherwise."""
 
-
+    queue_arcs = deque(arcs if arcs is not None else csp.constraints.arcs())
     # TODO implement this
     while queue_arcs is not empty:
         [xi, xj] = queue_arcs.popleft()
@@ -70,5 +70,5 @@ def revise(csp, xi, xj):
     y.append(value)
     print y
     
-    queue_arcs = deque(arcs if arcs is not None else csp.constraints.arcs())
+    
 """
