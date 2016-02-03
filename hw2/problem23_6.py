@@ -7,7 +7,7 @@ Yuanchi Ha yuha@ucsd.edu
 
 import sys
 import fileinput
-from queue import PriorityQueue
+from Queue import PriorityQueue
 
 openlist = PriorityQueue()
 closelist = []
@@ -101,7 +101,7 @@ def problem23_6():
     lines = []
 
     for j in range(0,row):
-        li = [int(x.strip()) for x in text[j].split(',')]
+        li = [int(x.strip()) for x in text[j].split(', ')]
         lines.append(li)
 
     #vacumm location not valid

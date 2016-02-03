@@ -62,31 +62,32 @@ def depth_limited_search(node, depth, path):
     return (None, path)
 
 def problem21_4():
-    for line in fileinput.input():
-        try:
-            arrangement = [int(x.strip()) for x in line.split(',')]
+    #for line in fileinput.input():
+    line = sys.stdin.readline()
+    try:
+        arrangement = [int(x.strip()) for x in line.split(', ')]
 
-        except ValueError:
+    except ValueError:
+        return 'invalid input'
+
+    # more than 3 numbers in the same line
+    if len(arrangement) > 3:
+        return 'invalid input'
+
+    # initial state not valid
+    for k in range(0, 3):
+        if arrangement[k] not in [0, 1]:
             return 'invalid input'
-
-        # more than 3 numbers in the same line
-        if len(arrangement) > 3:
-            return 'invalid input'
-
-        # initial state not valid
-        for k in range(0, 3):
-            if arrangement[k] not in [0, 1]:
-                return 'invalid input'
     
-        # determine whether the state is a goal state
-        if is_goal(arrangement):
-            return ''
+    # determine whether the state is a goal state
+    if is_goal(arrangement):
+        return ''
 
-        found = depth_limited_search(arrangement, 5, solution)
+    found = depth_limited_search(arrangement, 5, solution)
 
-        if found[0] is not None:
-            return found[1]
+    if found[0] is not None:
+        return found[1]
 
-        return 'None'
+    return 'None'
 
 print(problem21_4())

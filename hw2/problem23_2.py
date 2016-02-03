@@ -16,7 +16,7 @@ def problem23_2():
     column = len(text[0].split(','))
     lines = []
     for j in range(0,row):
-            li = [int(x.strip()) for x in text[j].split(',')]
+            li = [int(x.strip()) for x in text[j].split(', ')]
             lines.append(li)
             
     #vacumm location not valid

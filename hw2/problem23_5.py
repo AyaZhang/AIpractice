@@ -70,7 +70,7 @@ def problem23_5():
     lines = []
 
     for j in range(0,row):
-        li = [int(x.strip()) for x in text[j].split(',')]
+        li = [int(x.strip()) for x in text[j].split(', ')]
         lines.append(li)
 
     #vacumm location not valid
