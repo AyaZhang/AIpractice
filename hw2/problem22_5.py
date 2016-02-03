@@ -55,33 +55,33 @@ def depth_limited_search(node, depth, path, length):
     return (None, path)
 
 def problem22_5():
-    for line in fileinput.input():
+    #for line in fileinput.input():
+    line = sys.stdin.readline()
+    try:
+        arrangement = [int(x.strip()) for x in line.split(', ')]
+        length = len(arrangement)
 
-        try:
-            arrangement = [int(x.strip()) for x in line.split(',')]
-            length = len(arrangement)
+    except ValueError:
+        return 'invalid input'
 
-        except ValueError:
+
+    for k in range(0, length - 1):
+        if arrangement[k] not in [0, 1]:
             return 'invalid input'
-
-
-        for k in range(0, length - 1):
-            if arrangement[k] not in [0, 1]:
-                return 'invalid input'
-        if arrangement[length - 1] >= length - 1:
-            return 'invalid input'
+    if arrangement[length - 1] >= length - 1:
+        return 'invalid input'
         
-        # determine whether the state is a goal state
-        if is_goal(arrangement):
-            return ''
+    # determine whether the state is a goal state
+    if is_goal(arrangement):
+        return ''
 
-        for limit in range(0, 8):
+    for limit in range(0, 8):
 
-            found = depth_limited_search(arrangement, limit, solution, length)
+        found = depth_limited_search(arrangement, limit, solution, length)
 
-            if found[0] is not None:
-                return found[1]
+        if found[0] is not None:
+            return found[1]
 
-        return 'None'
+    return 'None'
 
 print(problem22_5())
