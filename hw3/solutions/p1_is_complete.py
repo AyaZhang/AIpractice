@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
-__author__ = 'Please write your names, separated by commas.'
-__email__ = 'Please write your email addresses, separated by commas.'
+__author__ = 'Xinyi Ma, Yuanchi Ha, Yijun Zhang'
+__email__ = 'xim002@ucsd.edu, yiz160@ucsd.edu'
 
 
 def is_complete(csp):
@@ -12,4 +12,11 @@ def is_complete(csp):
     # or when the domain of the variable has been reduced to a single value.)
 
     # TODO implement this
-    pass
+    #print csp.variables,'\n'
+    for var in csp.variables:
+        #print var
+        if not var.is_assigned():
+            return False
+
+    return True
+

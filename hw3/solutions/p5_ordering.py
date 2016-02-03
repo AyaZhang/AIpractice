@@ -1,7 +1,11 @@
 # -*- coding: utf-8 -*-
-__author__ = 'Sivasubramanian Chandrasegarampillai, Walter Curnow'
-__email__ = 'rchandra@uci.edu,wcurnow@uci.edu'
+__author__ = 'Xinyi Ma, Yuanchi Ha, Yijun Zhang'
+__email__ = 'yiz160@ucsd.edu'
 
+from p1_is_complete import *
+from p2_is_consistent import *
+from p3_basic_backtracking import *
+from assignment3 import *
 
 def select_unassigned_variable(csp):
     """Selects the next unassigned variable, or None if there is no more unassigned variables
@@ -13,9 +17,30 @@ def select_unassigned_variable(csp):
     unassigned variables.
     """
 
-    # TODO implement this
-    pass
+    # If there is no more unassigned variables, return None
+    if all(i.is_assigned() is True for i in csp.variables):
+        return None
 
+    # Return the variable that has minimum-remaining-value
+    unassigned = []
+
+    for i in csp.variables:
+        if not i.is_assigned():
+            unassigned.append(i)
+
+    if len(unassigned) == 1:
+        return unassigned[0]
+
+    unassigned.sort(key= lambda x: len(x.domain))
+
+    if (len(unassigned[0].domain) != len(unassigned[1].domain)):
+        return unassigned[0]
+
+    # Return the variable that has max occurance in constraints
+    occurance = [len(csp.constraints[i]) for i in unassigned]
+    nth = occurance.index(max(occurance))
+
+    return unassigned[nth]
 
 
 def order_domain_values(csp, variable):
@@ -26,5 +51,4 @@ def order_domain_values(csp, variable):
     are placed before others.
     """
 
-    # TODO implement this
-    pass
+    return None

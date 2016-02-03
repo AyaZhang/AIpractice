@@ -1,7 +1,10 @@
 # -*- coding: utf-8 -*-
-__author__ = 'Please write your names, separated by commas.'
-__email__ = 'Please write your email addresses, separated by commas.'
+__author__ = 'Xinyi Ma, Yuanchi Ha, Yijun Zhang'
+__email__ = ', yiz160@ucsd.edu'
 
+from p1_is_complete import *
+from p2_is_consistent import *
+from assignment3 import *
 
 def select_unassigned_variable(csp):
     """Selects the next unassigned variable, or None if there is no more unassigned variables
@@ -49,7 +52,26 @@ def backtrack(csp):
     """
 
     # TODO implement this
-    pass
+    return recursive_backtracking(csp)
+        
+def recursive_backtracking(csp):
+    if is_complete(csp):
+        return True
 
+    var = select_unassigned_variable(csp)
+    dom = var.domain
+    for value in order_domain_values(csp, var):
+        
+        if is_consistent(csp,var,value):
+            csp.variables.begin_transaction()
+            var.assign(value)
+            result = recursive_backtracking(csp)
+            if result:
+                return result
+            #var.domain = []
+            #for i in dom:
+            #    var.domain.append(i)
+            csp.variables.rollback()
 
+    return False
 

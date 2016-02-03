@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
-__author__ = 'Sivasubramanian Chandrasegarampillai, Walter Curnow'
-__email__ = 'rchandra@uci.edu,wcurnow@uci.edu'
+__author__ = 'Xinyi Ma, Yuanchi Ha, Yijun Zhang'
+__email__ = 'yiz160@ucsd.edu'
 
 
 def select_unassigned_variable(csp):
@@ -13,8 +13,8 @@ def select_unassigned_variable(csp):
     unassigned variables.
     """
 
-    # TODO implement this
-    pass
+    # If there is no more unassigned variables, return None
+    if 
 
 
 
