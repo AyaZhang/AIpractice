@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
-__author__ = 'Please write your names, separated by commas.'
-__email__ = 'Please write your email addresses, separated by commas.'
+__author__ = 'Xinyi Ma, Yuanchi Ha, Yijun Zhang'
+__email__ = ', yiz160@ucsd.edu'
 
 
 def is_consistent(csp, variable, value):
