@@ -19,44 +19,25 @@ def ac3(csp, arcs=None):#implement backtracking here?
     queue_arcs = deque(arcs if arcs is not None else csp.constraints.arcs())
     # TODO implement this
     while len(queue_arcs) != 0:
-        #print queue_arcs
         [xi, xj] = queue_arcs.popleft()
-        print [xi,xj]
-        #print 'remove: ',remove_inconsistent_values(csp,xi,xj)
-        for constraint in csp.constraints[xi,xj]:
-            print 'constraint:',constraint
-            if len(xi.domain) == 0 or len(xj.domain) == 0:
-                return False
+        if len(xi.domain) == 0:# or len(xj.domain) == 0:
+            return False
 
-            elif remove_inconsistent_values(csp,xi,xj):
-                for [xw,xk] in csp.constraints[xi].arcs():
-                    if xk != xi and xk != xj:
-                        queue_arcs.append((xk,xw))
-            elif constraint.is_satisfied(xi.value,xj.value):
-                print 'here'
-                break
-            
-            else:return False
+        elif remove_inconsistent_values(csp,xi,xj):
+            for [xw,xk] in csp.constraints[xi].arcs():
+                if xk != xi and xk != xj:
+                    queue_arcs.append((xk,xw))
     return True
 
 
 def remove_inconsistent_values(csp,xi, xj):
     removed = False
-    #dom = xi.domain
+    constrains = csp.constraints[xi,xj]
     for constraint in csp.constraints[xi,xj]:
         for x in xi.domain:
-            for y in xj.domain:
-                            if constraint.is_satisfied(x,y):
-                    break
-            #xi.assign(x)
-            #xj.assign(y)
-        for constraint in csp.constraints[xi,xj]:
-            if not constraint.is_satisfied(x,y):
-                #delete x from domain[xi]
+            if not all(constraint.is_satisfied(x,y) for y in xj.domain):
                 xi.domain.remove(x)
-                    
-                    removed = True
-    print 'removed', removed
+                removed = True
     return removed
 
 def revise(csp, xi, xj):
@@ -154,5 +135,41 @@ def revise(csp, xi, xj):
     xi.domain.append(val)
     
     removed = True
+    return removed
+"""
+"""
+    queue_arcs = deque(arcs if arcs is not None else csp.constraints.arcs())
+    #for element in queue_arcs:
+    #print element
+    # TODO implement this
+    while len(queue_arcs) != 0:
+    #print queue_arcs
+    [xi, xj] = queue_arcs.popleft()
+    #print [xi,xj]
+    if len(xi.domain) == 0:# or len(xj.domain) == 0:
+    return False
+    
+    elif remove_inconsistent_values(csp,xi,xj):
+    for [xw,xk] in csp.constraints[xi].arcs():
+    if xk != xi and xk != xj:
+    queue_arcs.append((xk,xw))
+    #elif constraint.is_satisfied(xi.value,xj.value):
+    #    print 'here'
+    #    break
+    
+    #else:return False
+    return True
+    
+    
+    def remove_inconsistent_values(csp,xi, xj):
+    removed = False
+    #dom = xi.domain
+    constrains = csp.constraints[xi,xj]
+    for constraint in csp.constraints[xi,xj]:
+    for x in xi.domain:
+    if not all(constraint.is_satisfied(x,y) for y in xj.domain):
+    xi.domain.remove(x)
+    removed = True
+    #print 'removed', removed
     return removed
 """
