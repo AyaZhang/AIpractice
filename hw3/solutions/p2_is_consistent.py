@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 __author__ = 'Xinyi Ma, Yuanchi Ha, Yijun Zhang'
-__email__ = ', yiz160@ucsd.edu'
+__email__ = 'xim002@ucsd.edu, yuha@ucsd.edu, yiz160@ucsd.edu'
 
 
 def is_consistent(csp, variable, value):
