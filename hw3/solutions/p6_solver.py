@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
-__author__ = 'Please write your names, separated by commas.'
-__email__ = 'Please write your email addresses, separated by commas.'
+__author__ = 'Xinyi Ma, Yuanchi Ha, Yijun Zhang'
+__email__ = 'xim002@ucsd.edu, yuha@ucsd.edu, yiz160@ucsd.edu'
 
 from collections import deque
 from p1_is_complete import *
