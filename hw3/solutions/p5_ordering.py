@@ -61,7 +61,7 @@ def order_domain_values(csp, variable):
     variable.domain = copy
 
     count.sort(key = lambda tup: tup[0])
-    print(count)
+    #print(count)
 
     return [i[1] for i in count]
 
