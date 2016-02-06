@@ -2,6 +2,10 @@
 __author__ = 'Xinyi Ma, Yuanchi Ha, Yijun Zhang'
 __email__ = 'yiz160@ucsd.edu'
 
+from p1_is_complete import *
+from p2_is_consistent import *
+from p3_basic_backtracking import *
+from assignment3 import *
 
 def select_unassigned_variable(csp):
     """Selects the next unassigned variable, or None if there is no more unassigned variables
@@ -14,8 +18,29 @@ def select_unassigned_variable(csp):
     """
 
     # If there is no more unassigned variables, return None
-    if 
+    if all(i.is_assigned() is True for i in csp.variables):
+        return None
 
+    # Return the variable that has minimum-remaining-value
+    unassigned = []
+
+    for i in csp.variables:
+        if not i.is_assigned():
+            unassigned.append(i)
+
+    if len(unassigned) == 1:
+        return unassigned[0]
+
+    unassigned.sort(key = lambda x: len(x.domain))
+
+    if (len(unassigned[0].domain) != len(unassigned[1].domain)):
+        return unassigned[0]
+
+    # Return the variable that has max occurance in constraints
+    occurance = [len(csp.constraints[i]) for i in unassigned]
+    nth = occurance.index(max(occurance))
+
+    return unassigned[nth]
 
 
 def order_domain_values(csp, variable):
@@ -26,5 +51,30 @@ def order_domain_values(csp, variable):
     are placed before others.
     """
 
-    # TODO implement this
-    pass
+    count = []
+    copy = variable.domain
+
+    for i in range(len(copy)):
+        variable.assign(copy[i])
+        count.append((test(csp, variable), copy[i]))
+
+    variable.domain = copy
+
+    count.sort(key = lambda tup: tup[0])
+
+    return [i[1] for i in count]
+
+
+def test(csp, variable):
+    """ Helper method for order_domain_values()
+
+    This method returns the number of violations that would occur if a
+    variable is assigned to certain value.
+    """
+
+    violations = 0
+
+    for i in csp.constraints[variable]:
+        violations += sum(1 for j in i.var2.domain if i.is_satisfied(variable.domain[0], j) == False)
+
+    return violations

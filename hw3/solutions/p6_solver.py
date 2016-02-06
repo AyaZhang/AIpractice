@@ -3,7 +3,10 @@ __author__ = 'Please write your names, separated by commas.'
 __email__ = 'Please write your email addresses, separated by commas.'
 
 from collections import deque
-
+from p1_is_complete import *
+from p2_is_consistent import *
+from p5_ordering import *
+from assignment3 import *
 
 def inference(csp, variable):
     """Performs an inference procedure for the variable assignment.
@@ -34,6 +37,20 @@ def backtrack(csp):
     """
 
     # TODO copy from p3
+    if is_complete(csp):
+        return True
+    
+    var = select_unassigned_variable(csp)
+    for value in order_domain_values(csp, var):
+        if is_consistent(csp,var,value):
+            csp.variables.begin_transaction()
+            var.assign(value)
+            inference(csp, var)
+            result = backtrack(csp)
+            if result:
+                return result
+            csp.variables.rollback()
+
     return False
 
 
@@ -52,4 +69,24 @@ def ac3(csp, arcs=None):
     queue_arcs = deque(arcs if arcs is not None else csp.constraints.arcs())
 
     # TODO copy from p4
-    pass
+    while len(queue_arcs) != 0:
+        [xi, xj] = queue_arcs.popleft()
+        if len(xi.domain) == 0:
+            return False
+        
+        elif remove_inconsistent_values(csp,xi,xj):
+            for [xw,xk] in csp.constraints[xi].arcs():
+                if xk != xi and xk != xj:
+                    queue_arcs.append((xk,xw))
+    return True
+
+
+def remove_inconsistent_values(csp,xi, xj):
+    removed = False
+    constrains = csp.constraints[xi,xj]
+    for constraint in csp.constraints[xi,xj]:
+        for x in xi.domain:
+            if not any(constraint.is_satisfied(x,y) for y in xj.domain):
+                xi.domain.remove(x)
+                removed = True
+    return removed
