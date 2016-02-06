@@ -52,12 +52,9 @@ def backtrack(csp):
     """
 
     # TODO implement this
-    return recursive_backtracking(csp)
-        
-def recursive_backtracking(csp):
     if is_complete(csp):
         return True
-
+    
     var = select_unassigned_variable(csp)
     dom = var.domain
     for value in order_domain_values(csp, var):
@@ -65,13 +62,11 @@ def recursive_backtracking(csp):
         if is_consistent(csp,var,value):
             csp.variables.begin_transaction()
             var.assign(value)
-            result = recursive_backtracking(csp)
+            result = backtrack(csp)
             if result:
                 return result
-            #var.domain = []
-            #for i in dom:
-            #    var.domain.append(i)
             csp.variables.rollback()
 
     return False
+
 

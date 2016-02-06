@@ -3,7 +3,7 @@ __author__ = 'Please write your names, separated by commas.'
 __email__ = 'Please write your email addresses, separated by commas.'
 
 from collections import deque
-
+#from p2_is_consistent import *
 
 def ac3(csp, arcs=None):#implement backtracking here?
     """Executes the AC3 or the MAC (p.218 of the textbook) algorithms.
@@ -18,57 +18,30 @@ def ac3(csp, arcs=None):#implement backtracking here?
 
     queue_arcs = deque(arcs if arcs is not None else csp.constraints.arcs())
     # TODO implement this
-    while queue_arcs is not empty:
+    while len(queue_arcs) != 0:
         [xi, xj] = queue_arcs.popleft()
-        if remove_inconsistent_values(xi,xj):
-            for [xi,xk] in csp.constraints[xi].arcs():  #csp.constraints[xi].arcs() find all constraint related to xi, and xk is the neighbor of xi(a problem here: xk sometime is the same as xi and some xk are repetitive)
-                queue_arcs.add(tuple(xk,xi))
+        if len(xi.domain) == 0:
+            return False
 
-def remove_inconsistent_values(xi, xj):
+        elif remove_inconsistent_values(csp,xi,xj):
+            for [xw,xk] in csp.constraints[xi].arcs():
+                if xk != xi and xk != xj:
+                    queue_arcs.append((xk,xw))
+    return True
+
+
+def remove_inconsistent_values(csp,xi, xj):
     removed = False
-    dom = xi.domain
-    for x in xi.domain:
-        xi.assign(x)
-        while y in xj.domain:
-            xj.assign[y]
-            if not csp.constraints[xi,xj]:
-                #xi.domain = [value in dom if value is not x]   #delete x from domain[xi]
+    constrains = csp.constraints[xi,xj]
+    for constraint in csp.constraints[xi,xj]:
+        for x in xi.domain:
+            if not any(constraint.is_satisfied(x,y) for y in xj.domain):
+                xi.domain.remove(x)
                 removed = True
     return removed
 
-def revise(csp, xi, xj):
+#def revise(csp, xi, xj):
     # You may additionally want to implement the 'revise' method.
-    pass
+#pass
 
-"""
-#debug here
-[xi, xj] = queue_arcs.popleft()
-    print [xi, xj]
-    print [xi]
-    print csp.constraints[xi].arcs()
-    list = deque(csp.constraints[xi].arcs())
-    for [xi, xk] in csp.constraints[xi].arcs():
-        print xk
-#for [xi, xk] in list:
-#print xk
-#for constraint in csp.constraints[xi]:
-#       print constraint
-#print type(constraint)
-"""
-"""
-    print queue_arcs
-    for item in queue_arcs:
-    print item
-    print type(item)
-    print item[1]
-    """
-"""
-    dom = [1,2,3,4]
-    x = 1
-    y = []
-    for value in dom and value is not x:
-    y.append(value)
-    print y
-    
-    
-"""
+
