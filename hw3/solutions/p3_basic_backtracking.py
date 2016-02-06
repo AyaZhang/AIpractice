@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 __author__ = 'Xinyi Ma, Yuanchi Ha, Yijun Zhang'
-__email__ = ', yiz160@ucsd.edu'
+__email__ = 'xim002@ucsd.edu, yuha@ucsd.edu, yiz160@ucsd.edu'
 
 from p1_is_complete import *
 from p2_is_consistent import *
