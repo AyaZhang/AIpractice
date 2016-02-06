@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
-__author__ = 'Please write your names, separated by commas.'
-__email__ = 'Please write your email addresses, separated by commas.'
+__author__ = 'Xinyi Ma, Yuanchi Ha, Yijun Zhang'
+__email__ = 'xim002@ucsd.edu, yuha@ucsd.edu, yiz160@ucsd.edu'
 
 from collections import deque
 from p1_is_complete import *
@@ -10,20 +10,20 @@ from assignment3 import *
 
 def inference(csp, variable):
     """Performs an inference procedure for the variable assignment.
-
-    For P6, *you do not need to modify this method.*
-    """
+        
+        For P6, *you do not need to modify this method.*
+        """
     return ac3(csp, csp.constraints[variable].arcs())
 
 
 def backtracking_search(csp):
     """Entry method for the CSP solver.  This method calls the backtrack method to solve the given CSP.
-
-    If there is a solution, this method returns the successful assignment (a dictionary of variable to value);
-    otherwise, it returns None.
-
-    For P6, *you do not need to modify this method.*
-    """
+        
+        If there is a solution, this method returns the successful assignment (a dictionary of variable to value);
+        otherwise, it returns None.
+        
+        For P6, *you do not need to modify this method.*
+        """
     if backtrack(csp):
         return csp.assignment
     else:
@@ -32,10 +32,10 @@ def backtracking_search(csp):
 
 def backtrack(csp):
     """Performs the backtracking search for the given csp.
-
-    If there is a solution, this method returns True; otherwise, it returns False.
-    """
-
+        
+        If there is a solution, this method returns True; otherwise, it returns False.
+        """
+    
     # TODO copy from p3
     if is_complete(csp):
         return True
@@ -56,18 +56,18 @@ def backtrack(csp):
 
 def ac3(csp, arcs=None):
     """Executes the AC3 or the MAC (p.218 of the textbook) algorithms.
-
-    If the parameter 'arcs' is None, then this method executes AC3 - that is, it will check the arc consistency
-    for all arcs in the CSP.  Otherwise, this method starts with only the arcs present in the 'arcs' parameter
-    in the queue.
-
-    Note that the current domain of each variable can be retrieved by 'variable.domains'.
-
-    This method returns True if the arc consistency check succeeds, and False otherwise.  Note that this method does not
-    return any additional variable assignments (for simplicity)."""
-
+        
+        If the parameter 'arcs' is None, then this method executes AC3 - that is, it will check the arc consistency
+        for all arcs in the CSP.  Otherwise, this method starts with only the arcs present in the 'arcs' parameter
+        in the queue.
+        
+        Note that the current domain of each variable can be retrieved by 'variable.domains'.
+        
+        This method returns True if the arc consistency check succeeds, and False otherwise.  Note that this method does not
+        return any additional variable assignments (for simplicity)."""
+    
     queue_arcs = deque(arcs if arcs is not None else csp.constraints.arcs())
-
+    
     # TODO copy from p4
     while len(queue_arcs) != 0:
         [xi, xj] = queue_arcs.popleft()
@@ -89,4 +89,5 @@ def remove_inconsistent_values(csp,xi, xj):
             if not any(constraint.is_satisfied(x,y) for y in xj.domain):
                 xi.domain.remove(x)
                 removed = True
+
     return removed
